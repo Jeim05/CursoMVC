@@ -1,0 +1,146 @@
+﻿
+@{
+    ViewBag.Title = "Usuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb mb-4 mt-4">
+    <li class="breadcrumb-item"><a href="index.html">Resumen</a></li>
+    <li class="breadcrumb-item active">Usuarios</li>
+</ol>
+
+<div class="card">
+    <div class="card-header">
+        <i class="fas fa-users me-1"></i> Lista de usuarios
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <button type="button" class="btn btn-success" onclick="abrirModal(null)">Crear nuevo</button>
+            </div>
+        </div>
+        <hr />
+        <table id="tabla" class="display cell-border" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Correo</th>
+                    <th>Activo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Usuario</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body g-2">
+                <input id="textid" type="hidden" value="0" />
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="textNombres" class="form-label">Nombres</label>
+                        <input type="text" class="form-control" id="textNombres">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="textApellidos" class="form-label">Apellidos</label>
+                        <input type="text" class="form-control" id="textApellidos">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="textEmail" class="form-label">Correo</label>
+                        <input type="email" class="form-control" id="textEmail">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="cboactivo" class="form-label">Activo</label>
+                        <select class="form-select" id="cboactivo">
+                            <option selected value="1">Si</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="Guardar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+
+        var tabladata;
+
+        tabladata = $("#tabla").DataTable({ // con el signo de numeral # hacemos la referencia al id de la tabla, que queremos desplegar los datos
+            responsive: true,
+            ordering: false,
+            "ajax": {
+                url: '@Url.Action("ListarUsuarios", "Home")',
+                type: "GET",
+                dataType: "json",
+            },
+            "columns": [
+                {"data":"Nombres"},
+                {"data":"Apellidos"},
+                {"data":"Correo"},
+                {
+                    "data": "Activo", "render": function (valor) {
+                        if (valor) {
+                            return '<span class="badge bg-success">Si</span>'
+                        } else {
+                            return '<span class="badge bg-danger">No</span>'
+                        }
+                    }
+                },
+                {
+                    "defaultContent": ' <button type="button" class="btn btn-primary btn-editar"> <i class="fas fa-pen"></i></button>' +
+                        ' <button type="button" class="btn btn-danger ms-2"> <i class="fas fa-trash"></i></button>',
+                    "orderable": false,
+                    "searchable": false,
+                        "width": "90px"
+                }
+            ],
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json"
+                // Esto se agrega con el fin de poder cambiar el lenguaje del data table, ya que esta en inglés
+            }
+        });
+
+        function abrirModal(json) {
+            $("#textid").val(0);
+            $("#textNombres").val("");
+            $("#textApellidos").val("");
+            $("#textEmail").val("");
+            $("#cboactivo").val(1);
+
+            if (json != null) {
+                $("#textid").val(json.IdUsuario);
+                $("#textNombres").val(json.Nombres);
+                $("#textApellidos").val(json.Apellidos);
+                $("#textEmail").val(json.Correo);
+                $("#cboactivo").val(json.Activo == true ? 1:0);
+            }
+
+            $("#formModal").modal("show");
+        }
+
+        $("#tabla tbody").on("click", '.btn-editar', function () {
+            var filaSeleccionada = $(this).closest("tr"); // en esta linea indicamos que se seleccione la fila donde esta el icono
+            var data = tabladata.row(filaSeleccionada).data();
+
+            abrirModal(data);
+        })
+
+    </script>
+}
+
