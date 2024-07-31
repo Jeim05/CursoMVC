@@ -11,6 +11,9 @@ namespace CapaPresentacionAdmin
             bundles.Add(new Bundle("~/bundles/jquery").Include( // SE ELIMINA LA PALABRA SCRIPT ANTES DEL BUNDLE
                         "~/Scripts/jquery-{version}.js"));
 
+            bundles.Add(new Bundle("~/bundles/complements").Include( // Se incluye el js que copiamos de la plantilla
+                        "~/Scripts/scripts.js")); // Luego esto se debe poner en el layout
+
             //bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
             //            "~/Scripts/jquery.validate*"));
 
