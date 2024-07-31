@@ -6,10 +6,17 @@ using System.Threading.Tasks;
 
 namespace CapaEntidad
 {
-    public class Categoria
+//    MARCA(
+//IdMarca int primary key identity,
+//Descripcion varchar(100),
+//Activo bit default 1,
+//FechaRegistro datetime default getdate()
+//)
+    public class Marca
     {
-        public int IdCategoria { get; set; }
+        public int IdMarca { get; set; }
         public string Descripcion { get; set; }
         public bool Activo { get; set; }
+
     }
 }
