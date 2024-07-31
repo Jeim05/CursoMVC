@@ -12,7 +12,9 @@ namespace CapaPresentacionAdmin
                         "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new Bundle("~/bundles/complements").Include( // Se incluye el js que copiamos de la plantilla
+                        "~/Scripts/fontawesome/all.min.js",
                         "~/Scripts/scripts.js")); // Luego esto se debe poner en el layout
+
 
             //bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
             //            "~/Scripts/jquery.validate*"));
