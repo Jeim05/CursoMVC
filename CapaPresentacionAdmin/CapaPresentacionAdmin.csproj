@@ -221,11 +221,13 @@
     <Content Include="webfonts\fa-brands-400.ttf" />
     <Content Include="webfonts\fa-brands-400.eot" />
     <Content Include="Views\Home\Usuarios.cshtml" />
+    <Content Include="Views\Mantenedor\Categoria.cshtml" />
+    <Content Include="Views\Mantenedor\Marca.cshtml" />
+    <Content Include="Views\Mantenedor\Producto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Mantenedor\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
