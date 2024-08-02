@@ -11,11 +11,11 @@ namespace CapaNegocio
 {
     public class CN_Usuarios
     {
-        private CD_Usuarios objCapaDatso = new CD_Usuarios();
+        private CD_Usuarios objCapaDatos = new CD_Usuarios();
         
         public List<Usuario> Listar()
         {
-            return objCapaDatso.Listar(); // Metodo que devuelve la lista con los usuarios registrados
+            return objCapaDatos.Listar(); // Metodo que devuelve la lista con los usuarios registrados
         }
     }
 }
