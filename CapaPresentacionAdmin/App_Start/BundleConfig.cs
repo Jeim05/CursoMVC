@@ -13,6 +13,8 @@ namespace CapaPresentacionAdmin
 
             bundles.Add(new Bundle("~/bundles/complements").Include( // Se incluye el js que copiamos de la plantilla
                         "~/Scripts/fontawesome/all.min.js",
+                        "~/Scripts/DataTables/jquery.dataTables.js",
+                        "~/Scripts/DataTables/dataTables.responsive.js",
                         "~/Scripts/scripts.js")); // Luego esto se debe poner en el layout
 
 
@@ -28,7 +30,10 @@ namespace CapaPresentacionAdmin
             bundles.Add(new Bundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.bundle.js")); // Aqui agregamos el .bundle
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                "~/Content/site.css",
+                "~/Content/DataTables/css/jquery.dataTables.css",
+                 "~/Content/DataTables/css/responsive.dataTables.css"));
         }
     }
 }
