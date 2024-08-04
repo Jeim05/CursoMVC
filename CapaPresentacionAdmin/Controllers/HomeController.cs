@@ -22,6 +22,7 @@ namespace CapaPresentacionAdmin.Controllers
         }
 
         // Devolvemos la lista de usuarios que viene desde la capa de Negocio
+        [HttpGet]
         public JsonResult ListarUsuarios() {
             List<Usuario> oLista = new List<Usuario>();
             oLista = new CN_Usuarios().Listar();
