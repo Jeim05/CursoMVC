@@ -37,18 +37,44 @@
 
 
 @section scripts{    
-   <script>
+    <script>
+
+       var tablaData;
        jQuery.ajax({
            url: '@Url.Action("ListarUsuarios", "Home")',
            type: "GET",
            dataType: "json",
            contentType: "application/json; charset-utf-8",
            success: function (data) {
-               debugger;
-               var texto1= "Hola soy el texto 1"
+
                console.log(data);
            }
        })
+
+       tablaData = $("#tabla").DataTable({
+           responsive: true,
+           ordering: false,
+           "ajax": {
+              /* Aqui lo que hace ajax es traer los valores*/
+               url: '@Url.Action("ListarUsuarios", "Home")',
+               type: "GET",
+               dataType: "json",
+           },
+           "columns": [
+               { "data": "Nombres" },
+               { "data": "Apellidos" },
+               { "data": "Correo" },
+               {
+                   "data": "Activo", "render": function (value) {
+                       if (value) {
+                           return '<span class="badge text-bg-success">Si</span>'
+                       } else {
+                           return '<span class="badge text-bg-danger">No</span>'
+                       }
+                   }
+               },
+           ]
+       });
     </script>
 }
 

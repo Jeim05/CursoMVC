@@ -27,7 +27,7 @@ namespace CapaPresentacionAdmin.Controllers
             List<Usuario> oLista = new List<Usuario>();
             oLista = new CN_Usuarios().Listar();
              
-            return Json(oLista, JsonRequestBehavior.AllowGet);
+            return Json(new { data = oLista }, JsonRequestBehavior.AllowGet); // Se hace de esta manera, porque así se puede usar en la tata table
         }
 
 
