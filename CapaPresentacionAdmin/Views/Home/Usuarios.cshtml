@@ -51,7 +51,8 @@
                     </div>
                     <div class="col-sm-6">
                         <label for="last-name" class="form-label">Apellidos</label>
-                        <input type="text" class="form-control" id="last-name" placeholder="Apellidos">
+                        <input type="text" class="form-control" id="last-name" placeholder="Apellidos">             * 
+             
                     </div>
                     <div class="col-sm-6">
                         <label for="email" class="form-label">Email</label>
@@ -120,8 +121,16 @@
             $("#formModal").modal("show");
         }
 
+        /* Con estas instrucciones se hace un llamado especifico solo a  la fila donde esta el boton de editar*/
         $("#tabla tbody").on("click", '.btn-edit', function () {
-            alert("Hola")
+            /* Con el this, hago referencia a la misma tabla */
+            var rowSelected = $(this).closest("tr");
+
+            /* Devuelve la información que hay en una fila de la tabla.
+            Por ejemplo, si le doy click al icono de editar 1, entonces esos datos se van a mostrar
+            */
+            var data = tablaData.row(rowSelected).data();
+            
         })
     </script>
 }
