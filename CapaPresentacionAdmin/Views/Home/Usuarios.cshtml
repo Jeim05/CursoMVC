@@ -103,7 +103,7 @@
                    }
                },
                {
-                   "defaultContent": ' <button type="button" class="btn btn-primary btn-sm"> <i class="fas fa-pen"></i></button>' +
+                   "defaultContent": ' <button type="button" class="btn btn-primary btn-sm btn-edit"> <i class="fas fa-pen"></i></button>' +
                        ' <button type="button" class="btn btn-danger btn-sm ms-2"> <i class="fas fa-trash"></i></button>',
                    "orderable": false,
                    "searchable": false,
@@ -119,6 +119,10 @@
         function abrirModal() {
             $("#formModal").modal("show");
         }
+
+        $("#tabla tbody").on("click", '.btn-edit', function () {
+            alert("Hola")
+        })
     </script>
 }
 
