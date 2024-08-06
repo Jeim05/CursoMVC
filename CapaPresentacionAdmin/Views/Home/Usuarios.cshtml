@@ -16,7 +16,7 @@
     <div class="card-body">
        <div class="row">
            <div class="col-12">
-               <button type="button" class="btn btn-success">Crear nuevo</button>
+               <button type="button" class="btn btn-success" onclick="abrirModal()">Crear nuevo</button>
            </div>
        </div>
         <hr />
@@ -36,21 +36,49 @@
     </div>
 </div>
 
+<div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h1 class="modal-title fs-5" id="formModalLabel">Usuario</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row g-2">
+                    <div class="col-sm-6">
+                        <label for="name" class="form-label">Nombres</label>
+                        <input type="text" class="form-control" id="name" placeholder="Nombres">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="last-name" class="form-label">Apellidos</label>
+                        <input type="text" class="form-control" id="last-name" placeholder="Apellidos">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="active" class="form-label">Activo</label>
+                        <select id="active" class="form-select" >
+                            <option value="1">Si</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @section scripts{    
     <script>
 
        var tablaData;
-       jQuery.ajax({
-           url: '@Url.Action("ListarUsuarios", "Home")',
-           type: "GET",
-           dataType: "json",
-           contentType: "application/json; charset-utf-8",
-           success: function (data) {
-
-               console.log(data);
-           }
-       })
 
        tablaData = $("#tabla").DataTable({
            responsive: true,
@@ -87,6 +115,10 @@
                "url": "https://cdn.datatables.net/plug-ins/2.1.3/i18n/es-ES.json"
            }
        });
+
+        function abrirModal() {
+            $("#formModal").modal("show");
+        }
     </script>
 }
 
