@@ -16,7 +16,7 @@
     <div class="card-body">
        <div class="row">
            <div class="col-12">
-               <button type="button" class="btn btn-success" onclick="abrirModal()">Crear nuevo</button>
+               <button type="button" class="btn btn-success" onclick="abrirModal(null)">Crear nuevo</button>
            </div>
        </div>
         <hr />
@@ -47,20 +47,20 @@
                 <div class="row g-2">
                     <div class="col-sm-6">
                         <label for="name" class="form-label">Nombres</label>
-                        <input type="text" class="form-control" id="name" placeholder="Nombres">
+                        <input type="text" name="txtname" class="form-control" id="txtname" placeholder="Nombres">
                     </div>
                     <div class="col-sm-6">
-                        <label for="last-name" class="form-label">Apellidos</label>
-                        <input type="text" class="form-control" id="last-name" placeholder="Apellidos">             * 
+                        <label for="lastname" class="form-label">Apellidos</label>
+                        <input type="text" class="form-control" id="txtlastname" placeholder="Apellidos">      
              
                     </div>
                     <div class="col-sm-6">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                        <input type="email" class="form-control" id="txtemail" placeholder="name@example.com">
                     </div>
                     <div class="col-sm-6">
                         <label for="active" class="form-label">Activo</label>
-                        <select id="active" class="form-select" >
+                        <select id="cboactive" class="form-select" >
                             <option value="1">Si</option>
                             <option value="0">No</option>
                         </select>
@@ -117,7 +117,14 @@
            }
        });
 
-        function abrirModal() {
+        function abrirModal(json) {
+            if (json != null) {
+                $("#txtname").val(json.Nombres);
+                $("#txtlastname").val(json.Apellidos);
+                $("#txtemail").val(json.Correo);
+                $("#cboactive").val(json.Activo == true ? 1: 0);
+            }
+           
             $("#formModal").modal("show");
         }
 
@@ -129,8 +136,8 @@
             /* Devuelve la información que hay en una fila de la tabla.
             Por ejemplo, si le doy click al icono de editar 1, entonces esos datos se van a mostrar
             */
-            var data = tablaData.row(rowSelected).data();
-            
+            var data = tablaData.row(rowSelected).data(); 
+            abrirModal(data);
         })
     </script>
 }
