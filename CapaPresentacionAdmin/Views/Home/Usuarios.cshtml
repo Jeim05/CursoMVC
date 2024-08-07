@@ -36,7 +36,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+<div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-dark text-white">
@@ -44,6 +44,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+
+                <input id="txtid" type="hidden" value="0" />
+
                 <div class="row g-2">
                     <div class="col-sm-6">
                         <label for="name" class="form-label">Nombres</label>
@@ -118,7 +121,15 @@
        });
 
         function abrirModal(json) {
+            /* Esto se hace para que al abrir el modal de Crear Usuario se limpien los datos */
+            $("#txtid").val(0);
+            $("#txtname").val("");
+            $("#txtlastname").val("");
+            $("#txtemail").val("");
+            $("#cboactive").val(1);
+
             if (json != null) {
+                $("#txtid").val(json.IdUsuario);
                 $("#txtname").val(json.Nombres);
                 $("#txtlastname").val(json.Apellidos);
                 $("#txtemail").val(json.Correo);
