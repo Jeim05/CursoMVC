@@ -72,7 +72,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-primary" onclick="Guardar()">Guardar</button>
             </div>
         </div>
     </div>
@@ -82,7 +82,8 @@
 @section scripts{    
     <script>
 
-       var tablaData;
+        var tablaData;
+        var rowSelected;
 
        tablaData = $("#tabla").DataTable({
            responsive: true,
@@ -135,21 +136,41 @@
                 $("#txtemail").val(json.Correo);
                 $("#cboactive").val(json.Activo == true ? 1: 0);
             }
-           
+
             $("#formModal").modal("show");
         }
 
         /* Con estas instrucciones se hace un llamado especifico solo a  la fila donde esta el boton de editar*/
         $("#tabla tbody").on("click", '.btn-edit', function () {
             /* Con el this, hago referencia a la misma tabla */
-            var rowSelected = $(this).closest("tr");
+            rowSelected = $(this).closest("tr");
 
             /* Devuelve la información que hay en una fila de la tabla.
             Por ejemplo, si le doy click al icono de editar 1, entonces esos datos se van a mostrar
             */
-            var data = tablaData.row(rowSelected).data(); 
+            var data = tablaData.row(rowSelected).data();
+            console.log(data)
             abrirModal(data);
         })
+
+        function Guardar() {
+            var user = {
+                IdUsuario: $("#txtid").val(),
+                Activo: $("#cboactive").val() == 1 ? true: false,
+                Apellidos: $("#txtlastname").val(),
+                Correo: $("#txtemail").val(),
+                Nombres: $("#txtname").val()
+            }
+
+            if (user.IdUsuario == 0) {
+                tablaData.row.add(user).draw(false);
+
+            } else
+                tablaData.row(rowSelected)
+        }
+
+            $("#formModal").modal("hide");
+        }
     </script>
 }
 
