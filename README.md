@@ -1,8 +1,10 @@
 # Curso ASP .NET
 Este es un proyecto donde se realiza una Tienda en Linea. 
 
-## Tecnologías:
+## Habilidades adquiridas:
 - Asp .net
 - SQL Server
 - Bootstrap
 - JQuery
+- ADO .NET
+- ImplementaciÃ³n del modelo de Capas
