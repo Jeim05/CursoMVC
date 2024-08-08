@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -30,7 +31,26 @@ namespace CapaPresentacionAdmin.Controllers
             return Json(new { data = oLista }, JsonRequestBehavior.AllowGet); // Se hace de esta manera, porque así se puede usar en la tata table
         }
 
+        [HttpPost]
+        public JsonResult GuardarUsuario(Usuario objeto)
+        {
+            object resultado; // es de tipo object, dado a que va a variar si es editar o registrar y va a tomar un tipo de dato bool o int
+            string mensaje = string.Empty;
+
+            if (objeto.IdUsuario == 0)
+            { // Validamos que el Id sea 0
+                resultado = new CN_Usuarios().Registrar(objeto, out mensaje); // Se llama al metodo de la capa de negocio para registrar el usuario
+
+            }
+            else { 
+                resultado= new CN_Usuarios().Editar(objeto, out mensaje);
+            }
+
+            // Se devuelve la logica obtenida de acuerdo al metodo que se haya ejecutado, registrar o editar
+            return Json(new { resultado = resultado, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
+        }
 
 
-    }
+
+        }
 }

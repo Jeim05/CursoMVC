@@ -45,7 +45,7 @@
             </div>
             <div class="modal-body">
 
-                <input id="txtid" type="hidden" value="0" />
+                <input id="txtid" type="text" disabled value="0" />
 
                 <div class="row g-2">
                     <div class="col-sm-6">
@@ -162,15 +162,43 @@
                 Nombres: $("#txtname").val()
             }
 
-            if (user.IdUsuario == 0) {
-                tablaData.row.add(user).draw(false);
+            jQuery.ajax({
+                url: '@Url.Action("GuardarUsuario", "Home")',
+                type: "POST",
+                data: JSON.stringify({objeto:user}), // Se usa el stringify para convertirlo a texto
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                succsess: function (data) {
 
-            } else
-                tablaData.row(rowSelected)
+                    debugger;
+                    // USUARIO NUEVO
+                    if (user.IdUsuario == 0) {
+                        if (data.IdUsuario != 0) {
+                            user.IdUsuario = data.resultado; // Actualizamos el id del usuario que tenia un 0, por ser nuevo usuario
+                            tablaData.row.add(user).draw(false);
+                            $("#formModal").modal("hide");
+                        } else {
+                            alert(data.mensaje);
+                        }
+
+                    } else
+                        tablaData.row(rowSelected)
+
+                },
+                error: function (error) {
+
+                },
+                beforeSend: function () {
+
+                }
+
+            })
+
+           
         }
 
-            $("#formModal").modal("hide");
-        }
+            
+        
     </script>
 }
 
