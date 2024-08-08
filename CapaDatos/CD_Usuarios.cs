@@ -127,7 +127,7 @@ namespace CapaDatos
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.CommandType = CommandType.Text;
                     connection.Open();
-                    resultado = cmd.ExecuteNonQuery() > 0 ? true : false;
+                    resultado = cmd.ExecuteNonQuery() > 0 ? true : false; // decimos que si el numero de filas afectadas es mayor a 0 va a ser true, caso contrario hubo un problema en eliminar
                 }
             }
             catch (Exception ex)

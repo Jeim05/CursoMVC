@@ -11,7 +11,7 @@ namespace CapaNegocio
 {
     public class CN_Usuarios
     {
-        private CD_Usuarios objCapaDatos = new CD_Usuarios();
+        private CD_Usuarios objCapaDatos = new CD_Usuarios(); // Se crea la instancia de la capa de datos
         
         public List<Usuario> Listar()
         {
@@ -78,6 +78,11 @@ namespace CapaNegocio
                 return false;
             }
 
+        }
+
+        public bool Eliminar(int id, out string Mensaje)
+        {
+            return objCapaDatos.Eliminar(id, out Mensaje);
         }
     }
 }
