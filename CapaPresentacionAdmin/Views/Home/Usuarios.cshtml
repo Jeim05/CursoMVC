@@ -69,6 +69,14 @@
                         </select>
                     </div>
                 </div>
+
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div id="mensajeError" class="alert alert-danger" role="alert">
+                            A simple danger alert—check it out!
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -128,6 +136,7 @@
             $("#txtlastname").val("");
             $("#txtemail").val("");
             $("#cboactive").val(1);
+            $("#mensajeError").hide();
 
             if (json != null) {
                 $("#txtid").val(json.IdUsuario);
@@ -154,7 +163,8 @@
         })
 
         function Guardar() {
-            var user = {
+
+            var Usuario = {
                 IdUsuario: $("#txtid").val(),
                 Activo: $("#cboactive").val() == 1 ? true: false,
                 Apellidos: $("#txtlastname").val(),
@@ -165,24 +175,39 @@
             jQuery.ajax({
                 url: '@Url.Action("GuardarUsuario", "Home")',
                 type: "POST",
-                data: JSON.stringify({objeto:user}), // Se usa el stringify para convertirlo a texto
+                data: JSON.stringify({ objeto : Usuario}), // Se usa el stringify para convertirlo a texto
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
-                succsess: function (data) {
+                success: function (data) {
 
                     debugger;
+
                     // USUARIO NUEVO
-                    if (user.IdUsuario == 0) {
-                        if (data.IdUsuario != 0) {
-                            user.IdUsuario = data.resultado; // Actualizamos el id del usuario que tenia un 0, por ser nuevo usuario
-                            tablaData.row.add(user).draw(false);
+                    if (Usuario.IdUsuario == 0) {
+
+                        if (data.resultado != 0) {
+                            Usuario.IdUsuario = data.resultado; // Actualizamos el id del usuario que tenia un 0, por ser nuevo usuario
+                            tablaData.row.add(Usuario).draw(false);
                             $("#formModal").modal("hide");
                         } else {
-                            alert(data.mensaje);
+                            $("#mensajeError").text(data.mensaje);
+                            $("#mensajeError").show();
                         }
 
-                    } else
-                        tablaData.row(rowSelected)
+                    } else {
+                        // USUARIO EDITAR
+                        if (data.resultado) { // Editar ya devuelve un bool por eso hacemos de esta forma
+                            tablaData.row(rowSelected).data(Usuario).draw(false);
+                            rowSelected = null;
+                            $("#formModal").modal("hide");
+                        } else {
+                            $("#mensajeError").text(data.mensaje);
+                            $("#mensajeError").show();
+                        }
+
+
+
+                    }
 
                 },
                 error: function (error) {
@@ -191,14 +216,13 @@
                 beforeSend: function () {
 
                 }
-
             })
 
-           
+
         }
 
-            
-        
+
+
     </script>
 }
 
