@@ -179,9 +179,7 @@
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-
-                    debugger;
-
+                    $(".modal-body").LoadingOverlay("hide")
                     // USUARIO NUEVO
                     if (Usuario.IdUsuario == 0) {
 
@@ -207,10 +205,16 @@
                     }
                 },
                 error: function (error) {
-
+                    $(".modal-body").LoadingOverlay("hide")
+                    $("#mensajeError").text("Error ajax");
+                    $("#mensajeError").show();
                 },
                 beforeSend: function () {
-
+                    $(".modal-body").LoadingOverlay("show", {
+                        imageResizeFactor: 2,
+                        text: "Cargando",
+                        size: 14
+                    });
                 }
             })
         }

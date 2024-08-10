@@ -15,6 +15,7 @@ namespace CapaPresentacionAdmin
                         "~/Scripts/fontawesome/all.min.js",
                         "~/Scripts/DataTables/jquery.dataTables.js",
                         "~/Scripts/DataTables/dataTables.responsive.js",
+                        "~/Scripts/loadingoverlay/loadingoverlay.min.js",
                         "~/Scripts/scripts.js")); // Luego esto se debe poner en el layout
 
 
