@@ -1,5 +1,5 @@
 # Curso ASP .NET
-Este es un proyecto donde se realiza una Tienda en Linea. 
+Curso de sistema web de un Carrito de Compras, donde se implementan diferentes modulos para la administración de los usuarios, categorias, productos, entre otros. 
 
 ## Habilidades adquiridas:
 - Asp .net
