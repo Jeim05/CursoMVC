@@ -45,7 +45,7 @@ namespace CapaNegocio
             {
                 MailMessage mail = new MailMessage();
                 mail.To.Add(correo);
-                mail.From = new MailAddress("jeimmylopezv@gmail.com");
+                mail.From = new MailAddress("jeimmy.lopez.vega@est.una.ac.cr");
                 mail.Subject= asunto;
                 mail.Body= mensaje;
                 mail.IsBodyHtml = true;
