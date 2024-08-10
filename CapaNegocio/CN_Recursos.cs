@@ -51,7 +51,7 @@ namespace CapaNegocio
                 mail.IsBodyHtml = true;
 
                 var smtp = new SmtpClient(){
-                    Credentials = new NetworkCredencial("",""),
+                    Credentials = new NetworkCredencial("jeimmy.lopez.vega@est.una.ac.cr","ecgn sijt gerc epxk"),
                     Host = "smtp.gmail.com",
                     Port = 587,
                     EnableSsl = true
