@@ -5,10 +5,22 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
+
+// Clases para enviar un correo electronico
+using System.Net.Mail;
+using System.Net;
+using System.IO;
+
 namespace CapaNegocio
 {
     public class CN_Recursos
     {
+        public static string GenerarClave()
+        {
+            string clave = Guid.NewGuid().ToString("N").Substring(0, 6); // Genera una clave aleatoria de seis digitos
+            return clave;
+        }
+
         public static string ConvertirSha256(string texto)
         {
             StringBuilder Sb = new StringBuilder();
@@ -22,6 +34,24 @@ namespace CapaNegocio
                     Sb.Append(b.ToString("x2"));
             }
             return Sb.ToString();
+        }
+
+
+        public static bool EnviarCorreo(string correo, string asunto, string mensaje)
+        {
+            bool resultado = false;
+
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+            return resultado;
         }
     }
 }
