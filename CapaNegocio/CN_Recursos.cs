@@ -43,6 +43,21 @@ namespace CapaNegocio
 
             try
             {
+                MailMessage mail = new MailMessage();
+                mail.To.Add(correo);
+                mail.From = new MailAddress("jeimmylopezv@gmail.com");
+                mail.Subject= asunto;
+                mail.Body= mensaje;
+                mail.IsBodyHtml = true;
+
+                var smtp = new SmtpClient(){
+                    Credentials = new NetworkCredencial("",""),
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true
+                };
+                smtp.Send(mail);
+                resultado = true;
 
             }
             catch (Exception ex)
