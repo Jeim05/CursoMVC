@@ -63,7 +63,7 @@ namespace CapaNegocio
             catch (Exception ex)
             {
 
-                throw;
+                resultado = false;
             }
 
             return resultado;
