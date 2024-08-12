@@ -45,16 +45,18 @@ namespace CapaNegocio
             {
                 MailMessage mail = new MailMessage();
                 mail.To.Add(correo);
-                mail.From = new MailAddress("jeimmy.lopez.vega@est.una.ac.cr");
-                mail.Subject= asunto;
-                mail.Body= mensaje;
+                mail.From = new MailAddress("jeimmylopezv@gmail.com");
+                mail.Subject = asunto;
+                mail.Body = mensaje;
                 mail.IsBodyHtml = true;
 
-                var smtp = new SmtpClient(){
-                    Credentials = new NetworkCredential("jeimmy.lopez.vega@est.una.ac.cr","ecgn sijt gerc epxk"),
+                var smtp = new SmtpClient
+                {
                     Host = "smtp.gmail.com",
                     Port = 587,
-                    EnableSsl = true
+                    EnableSsl = true,
+                    Credentials = new NetworkCredential("jeimmylopezv@gmail.com", "teoispwzmhmrbmww"),
+
                 };
                 smtp.Send(mail);
                 resultado = true;
@@ -62,7 +64,7 @@ namespace CapaNegocio
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex);
                 resultado = false;
             }
 
