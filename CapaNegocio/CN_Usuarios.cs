@@ -35,15 +35,30 @@ namespace CapaNegocio
             }
             else if (string.IsNullOrEmpty(obj.Correo) || string.IsNullOrWhiteSpace(obj.Correo))
             {
-                Mensaje = "Debes agregar un usuario";
+                Mensaje = "El correo del usuario no puede ser vacio";
             }
 
             // En esta validación indicamos que si mensaje sigue siendo vacio, significa que no hubo error
             if (string.IsNullOrEmpty(Mensaje))
             {
-                string clave = "test123";
-                obj.Clave = CN_Recursos.ConvertirSha256(clave); // Encriptamos la clave
-                return objCapaDatos.Registrar(obj, out Mensaje);
+                string clave = CN_Recursos.GenerarClave();
+                string asunto = "Credenciales creación de cuenta";
+                string mensaje_correo = "<h3>Su cuenta fue creada correctamente</h3></br><p>Su contraseña para acceder es: !clave!</p>";
+                mensaje_correo = mensaje_correo.Replace("!clave!",clave);
+
+                bool respuesta = CN_Recursos.EnviarCorreo(obj.Correo, asunto, mensaje_correo);
+
+                if (respuesta)
+                {
+                    obj.Clave = CN_Recursos.ConvertirSha256(clave); // Encriptamos la clave
+                    return objCapaDatos.Registrar(obj, out Mensaje);
+                }
+                else
+                {
+                    Mensaje = "No se puede enviar el correo";
+                    return 0;
+                }
+  
             }
             else {
                 return 0;
