@@ -43,5 +43,30 @@ namespace CapaNegocio
 
 
         }
+
+          public bool Editar(Categoria obj, out string Mensaje)
+        {
+            Mensaje = string.Empty;
+            // Validamos que el nombre no sea vacio o que no contenga espacios vacios
+            if (string.IsNullOrEmpty(obj.Descripcion) || string.IsNullOrWhiteSpace(obj.Descripcion))
+            {
+                Mensaje = "La descripción de la categoria no puede ser vacio";
+            }
+
+            if (string.IsNullOrEmpty(Mensaje))
+            {
+                return objCapaDatos.Editar(obj, out Mensaje);
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        public bool Eliminar(int id, out string Mensaje)
+        {
+            return objCapaDatos.Eliminar(id, out Mensaje);
+        }
     }
 }
