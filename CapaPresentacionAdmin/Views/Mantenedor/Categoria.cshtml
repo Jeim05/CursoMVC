@@ -118,17 +118,15 @@
        });
 
         function abrirModal(json) {
-            /* Esto se hace para que al abrir el modal de Crear Usuario se limpien los datos */
+            
             $("#txtid").val(0);
             $("#txtdescription").val("");
             $("#cboactive").val(1);
             $("#mensajeError").hide();
 
             if (json != null) {
-                $("#txtid").val(json.IdUsuario);
-                $("#txtname").val(json.Nombres);
-                $("#txtlastname").val(json.Apellidos);
-                $("#txtemail").val(json.Correo);
+                $("#txtid").val(json.IdCategoria);
+                $("#txtdescription").val(json.Descripcion);
                 $("#cboactive").val(json.Activo == true ? 1: 0);
             }
 
@@ -148,12 +146,12 @@
         })
 
         $("#tabla tbody").on("click", '.btn-delete', function () {
-            var usuarioSeleccionado = $(this).closest("tr");
-            var data = tablaData.row(usuarioSeleccionado).data();
+            var categoriaSeleccionada = $(this).closest("tr");
+            var data = tablaData.row(categoriaSeleccionada).data();
 
             swal({
                 title: "¿Esta seguro?",
-                text: "¿Desea eliminar el usuario?",
+                text: "¿Desea eliminar la categori?",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonClass: "btn-primary",
@@ -162,14 +160,14 @@
                 closeOnConfirm: true
             }, function () {
                 jQuery.ajax({
-                    url: '@Url.Action("EliminarUsuario", "Home")',
+                    url: '@Url.Action("EliminarCategoria", "Mantenedor")',
                     type: "POST",
-                    data: JSON.stringify({ id: data.IdUsuario }), // Se usa el stringify para convertirlo a texto
+                    data: JSON.stringify({ id: data.IdCategoria }), // Se usa el stringify para convertirlo a texto
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     success: function (data) {
                         if (data.resultado){
-                            tablaData.row(usuarioSeleccionado).remove().draw();
+                            tablaData.row(categoriaSeleccionada).remove().draw();
                         } else {
                             swal("No se pudo eliminar", data.mensaje, error)
                         }
@@ -179,75 +177,32 @@
                         console.log(error)
                     }
 })
-
-                console.log(data)
             })
         })
 
-            @*
-            swal({
-                title: "¿Esta seguro?",
-                text: "¿Desea eliminar el usuario?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonClass: "btn-primary",
-                confirmButtonText: "Si",
-                cancelButtonText: "No",
-                closeOnConfirm: true
-            },
-                function () {
-             jQuery.ajax({
-    url: '@Url.Action("EliminarUsuario", "Home")',
-    type: "POST",
-    data: JSON.stringify({ id: data.IdUsuario }), // Se usa el stringify para convertirlo a texto
-    dataType: "json",
-    contentType: "application/json; charset=utf-8",
-    success: function (data) {
-        if (data.resultado{
-            tablaData.row(usuarioSeleccionado).remove().draw();
-        } else {
-            swal("No se pudo eliminar", data.mensaje, error)
-        }
-
-    },
-    error: function (error) {
-        console.log(error)
-    }
-})
-
-
-
-             })
-
-            console.log(data)
-        })*@
-
-
-
         function Guardar() {
 
-            var Usuario = {
-                IdUsuario: $("#txtid").val(),
+            var Categoria = {
+                IdCategoria: $("#txtid").val(),
+                Descripcion: $("#txtdescription").val(),
                 Activo: $("#cboactive").val() == 1 ? true: false,
-                Apellidos: $("#txtlastname").val(),
-                Correo: $("#txtemail").val(),
-                Nombres: $("#txtname").val()
             }
 
             jQuery.ajax({
-                url: '@Url.Action("GuardarUsuario", "Home")',
+                url: '@Url.Action("GuardarCategoria", "Mantenedor")',
                 type: "POST",
-                data: JSON.stringify({ objeto : Usuario}), // Se usa el stringify para convertirlo a texto
+                data: JSON.stringify({ objeto : Categoria}), // Se usa el stringify para convertirlo a texto
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     $(".modal-body").LoadingOverlay("hide")
-                    // USUARIO NUEVO
-                    if (Usuario.IdUsuario == 0) {
+
+                    if (Categoria.IdCategoria == 0) {
 
                         if (data.resultado != 0) {
-                            Usuario.IdUsuario = data.resultado; // Actualizamos el id del usuario que tenia un 0, por ser nuevo usuario
-                            tablaData.row.add(Usuario).draw(false);
+                            Categoria.IdCategoria = data.resultado; 
+
+                            tablaData.row.add(Categoria).draw(false);
                             $("#formModal").modal("hide");
                         } else {
                             $("#mensajeError").text(data.mensaje);
@@ -255,9 +210,8 @@
                         }
 
                     } else {
-                        // USUARIO EDITAR
                         if (data.resultado) { // Editar ya devuelve un bool por eso hacemos de esta forma
-                            tablaData.row(rowSelected).data(Usuario).draw(false);
+                            tablaData.row(rowSelected).data(Categoria).draw(false);
                             rowSelected = null;
                             $("#formModal").modal("hide");
                         } else {

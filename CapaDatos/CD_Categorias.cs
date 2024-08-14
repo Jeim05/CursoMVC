@@ -56,7 +56,7 @@ namespace CapaDatos
 
         public int Registrar(Categoria obj, out string Mensaje)
         {
-            int idAutogenerado = 0; // Se recibe el id del usuario al momento de hacer el registro
+            int idAutogenerado = 0; 
             Mensaje = string.Empty;
             try
             {

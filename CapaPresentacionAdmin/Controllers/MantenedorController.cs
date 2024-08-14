@@ -29,8 +29,8 @@ namespace CapaPresentacionAdmin.Controllers
 
          [HttpGet]
         public JsonResult ListarCategorias() {
-            List<Categoria> oLista = new List<aCategoria>();
-            oLista = new CN_Categorias().Listar();
+            List<Categoria> oLista = new List<Categoria>();
+            oLista = new CN_Categoria().Listar();
              
             return Json(new { data = oLista }, JsonRequestBehavior.AllowGet); // Se hace de esta manera, porque así se puede usar en la tata table
         }
@@ -43,11 +43,11 @@ namespace CapaPresentacionAdmin.Controllers
 
             if (objeto.IdCategoria == 0)
             { // Validamos que el Id sea 0
-                resultado = new CN_Categorias().Registrar(objeto, out mensaje); // Se llama al metodo de la capa de negocio para registrar el usuario
+                resultado = new CN_Categoria().Registrar(objeto, out mensaje); 
 
             }
             else { 
-                resultado= new CN_Categorias().Editar(objeto, out mensaje);
+                resultado= new CN_Categoria().Editar(objeto, out mensaje);
             }
 
             // Se devuelve la logica obtenida de acuerdo al metodo que se haya ejecutado, registrar o editar
@@ -55,12 +55,12 @@ namespace CapaPresentacionAdmin.Controllers
         }
 
           [HttpPost]
-        public JsonResult EliminarUsuario(int id)
+        public JsonResult EliminarCategoria(int id)
         {
             bool respuesta = false;
             string mensaje = string.Empty;
 
-            respuesta = new CN_Categorias().Eliminar(id, out mensaje);
+            respuesta = new CN_Categoria().Eliminar(id, out mensaje);
 
             return Json(new { resultado = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
         }

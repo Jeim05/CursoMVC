@@ -15,12 +15,11 @@ namespace CapaNegocio
 
         public List<Categoria> Listar()
         {
-            return objCapaDatos.Listar(); // Metodo que devuelve la lista con los usuarios registrados
+            return objCapaDatos.Listar(); 
         }
 
         public int Registrar(Categoria obj, out string Mensaje)
         {
-            // Antes de registrar un un usuario aplicamos toda la capa de negocio que se debe hacer antes de registrar en la BD
             Mensaje = string.Empty;
 
 
