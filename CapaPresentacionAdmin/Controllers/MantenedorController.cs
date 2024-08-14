@@ -27,7 +27,9 @@ namespace CapaPresentacionAdmin.Controllers
             return View();
         }
 
-         [HttpGet]
+        /* METODOS CATEGORIAS */
+        #region CATEGORIA
+        [HttpGet]
         public JsonResult ListarCategorias() {
             List<Categoria> oLista = new List<Categoria>();
             oLista = new CN_Categoria().Listar();
@@ -64,7 +66,51 @@ namespace CapaPresentacionAdmin.Controllers
 
             return Json(new { resultado = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
         }
+        #endregion
 
-        
+        /*METODOS MARCAS*/
+        #region MARCAS
+        [HttpGet]
+        public JsonResult ListarMarcas()
+        {
+            List<Marca> oLista = new List<Marca>();
+            oLista = new CN_Marca().Listar();
+
+            return Json(new { data = oLista }, JsonRequestBehavior.AllowGet); // Se hace de esta manera, porque así se puede usar en la tata table
+        }
+
+        [HttpPost]
+        public JsonResult GuardarMarca(Marca objeto)
+        {
+            object resultado; // es de tipo object, dado a que va a variar si es editar o registrar y va a tomar un tipo de dato bool o int
+            string mensaje = string.Empty;
+
+            if (objeto.IdMarca == 0)
+            { // Validamos que el Id sea 0
+                resultado = new CN_Marca().Registrar(objeto, out mensaje);
+
+            }
+            else
+            {
+                resultado = new CN_Marca().Editar(objeto, out mensaje);
+            }
+
+            // Se devuelve la logica obtenida de acuerdo al metodo que se haya ejecutado, registrar o editar
+            return Json(new { resultado = resultado, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult EliminarMarca(int id)
+        {
+            bool respuesta = false;
+            string mensaje = string.Empty;
+
+            respuesta = new CN_Marca().Eliminar(id, out mensaje);
+
+            return Json(new { resultado = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+
     }
 }
