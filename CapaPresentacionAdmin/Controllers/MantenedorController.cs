@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
 using CapaEntidad;
 using CapaNegocio;
+using Newtonsoft.Json;
 
 namespace CapaPresentacionAdmin.Controllers
 {
@@ -27,7 +31,7 @@ namespace CapaPresentacionAdmin.Controllers
             return View();
         }
 
-        /* METODOS CATEGORIAS */
+        /*****  METODOS CATEGORIAS *****/
         #region CATEGORIA
         [HttpGet]
         public JsonResult ListarCategorias() {
@@ -68,7 +72,7 @@ namespace CapaPresentacionAdmin.Controllers
         }
         #endregion
 
-        /*METODOS MARCAS*/
+        /*****  METODOS MARCAS *****/
         #region MARCAS
         [HttpGet]
         public JsonResult ListarMarcas()
@@ -111,6 +115,102 @@ namespace CapaPresentacionAdmin.Controllers
         }
         #endregion
 
+        /***** METODOS PRODUCTOS *****/
+        #region PRODUCTOS
+        [HttpGet]
+        public JsonResult ListarProductos()
+        {
+            List<Producto> oLista = new List<Producto>();
+            oLista = new CN_Producto().Listar();
+
+            return Json(new { data = oLista }, JsonRequestBehavior.AllowGet); 
+        }
+
+        [HttpPost]
+        public JsonResult GuardarProducto(string objeto, HttpPostedFileBase archivoImagen)
+        {
+            string mensaje = string.Empty;
+            bool operacion_exitosa = true;
+            bool guardar_imagen_exito = true;
+
+            Producto oProducto = new Producto();
+            oProducto = JsonConvert.DeserializeObject<Producto>(objeto); // Convertimos el producto en texto a objeto
+
+            decimal precio;
+
+            if (decimal.TryParse(oProducto.PrecioTexto, NumberStyles.AllowDecimalPoint, new CultureInfo("es-CR"), out precio))
+            {
+                oProducto.Precio = precio;
+            }
+            else
+            {
+                return Json(new {operacionExitosa=false, mensaje = "El formato del precio debe ser ##.##"}, JsonRequestBehavior.AllowGet);
+            }
+
+
+            if (oProducto.IdProducto == 0)
+            {
+                int idProductoGenerado = new CN_Producto().Registrar(oProducto, out mensaje);
+
+                if (idProductoGenerado !=0)
+                {
+                    oProducto.IdProducto = idProductoGenerado;
+                }
+                else
+                {
+                    operacion_exitosa = false;
+                }
+
+            }
+            else
+            {
+                operacion_exitosa = new CN_Producto().Editar(oProducto, out mensaje);
+            }
+
+            // Si la siguiente condición se cumple entonces procede a guardar la imagen
+            if (operacion_exitosa)
+            {
+                if(archivoImagen != null)
+                {
+                    // Logica para guardar la imagen en la carpeta
+                    /* Agregamos en el webConfig la configuración de la ruta de la carpeta donde guardar la imagen 
+                     y hacemos la referencia de la configuración aqui*/
+
+                    string ruta_guardar = ConfigurationManager.AppSettings["ServidorFotos"];
+                    string extension = Path.GetExtension(archivoImagen.FileName);
+                    string nombre_imagen = string.Concat(oProducto.IdProducto.ToString(),extension);
+
+                    try
+                    {
+                        archivoImagen.SaveAs(Path.Combine(ruta_guardar);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        string msg = ex.Message;
+                        guardar_imagen_exito = false;
+                    }
+
+                    if (guardar_imagen_exito)
+                    {
+                        oProducto.RutaImagen = ruta_guardar;
+                        oProducto.NombreImagen = nombre_imagen;
+                        bool rspta = new CN_Producto().GuardarDatosImagen(oProducto, out mensaje);
+                    }
+                    else
+                    {
+                        mensaje = "Se guardo el producto pero hubo problemas con la imagen";
+                    }
+
+                }
+            }
+
+            return Json(new { operacionExitosa = operacion_exitosa, idGenerado = oProducto.IdProducto , mensaje = mensaje}, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        #endregion
 
     }
 }
