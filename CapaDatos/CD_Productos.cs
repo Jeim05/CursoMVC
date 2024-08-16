@@ -148,7 +148,7 @@ namespace CapaDatos
                     string query = "update producto set RutaImagen = @rutaimagen, NombreImagen = @nombreImagen where IdProducto = @idproducto";
 
                     SqlCommand cmd = new SqlCommand(query, conexion); 
-                    cmd.Parameters.AddWithValue("@rutaimagen", obj.RutaImagen;
+                    cmd.Parameters.AddWithValue("@rutaimagen", obj.RutaImagen);
                     cmd.Parameters.AddWithValue("@nombreImagen", obj.NombreImagen);
                     cmd.Parameters.AddWithValue("@idproducto", obj.IdProducto);
                     cmd.CommandType = CommandType.Text; 
@@ -200,5 +200,4 @@ namespace CapaDatos
             return resultado;
         }
     }
-}
 }
