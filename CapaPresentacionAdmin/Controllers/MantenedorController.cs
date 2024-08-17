@@ -32,6 +32,7 @@ namespace CapaPresentacionAdmin.Controllers
         }
 
         /*****  METODOS CATEGORIAS *****/
+
         #region CATEGORIA
         [HttpGet]
         public JsonResult ListarCategorias() {

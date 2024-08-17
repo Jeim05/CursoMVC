@@ -5,13 +5,14 @@
 }
 
 <ol class="breadcrumb mb-4 mt-10">
-    <li class="breadcrumb-item"><a href="index.html">Mantenimiento</a></li>
-    <li class="breadcrumb-item active">Marcas</li>
+    <li class="breadcrumb-item">
+<a href="index.html">Mantenimiento</a></li>
+    <li class="breadcrumb-item active">Productos</li>
 </ol>
 
 <div class="card">
     <div class="card-header">
-        <i class="fas fa-users me-1"></i> Lista de Marcas
+        <i class="fas fa-boxes me-1"></i> Lista de Productos
     </div>
     <div class="card-body">
         <div class="row">
@@ -24,7 +25,11 @@
         <table id="tabla" class="display cell-border" style="width: 100%">
             <thead>
                 <tr>
+                    <th>Nombre</th>
                     <th>Descripción</th>
+                    <th>Marca</th>
+                    <th>Categoría</th>
+                    <th>Stock</th>
                     <th>Activo</th>
                     <th></th>
                 </tr>
@@ -35,29 +40,67 @@
 </div>
 
 <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true" data-bs-backdrop="static">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header bg-dark text-white">
-                <h1 class="modal-title fs-5" id="formModalLabel">Marca</h1>
+                <h1 class="modal-title fs-5" id="formModalLabel">Producto</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body ">
 
                 <input id="txtid" type="text" disabled value="0" />
 
-                <div class="row g-1">
-                    <div class="col-sm-6">
-                        <label for="description" class="form-label">Descripcion</label>
-                        <input type="text" class="form-control" id="txtdescription" placeholder="Descripción">
+                <form id="contenedor" class="row">
+                    <div class="col-sm-3">
+                        <div class="mb-2">
+                            <img id="img_producto" height="197" width="200" class="border rounded mx-auto d-block img-fluid" />
+                        </div>
+                        <div class="mb-2">
+                            <input class="form-control" type="file" id="fileProducto" accept="image/png, image/jpg, image/jpeg, image/webp" onchange=" mostrarImagen(this)" />
+                        </div>
                     </div>
-                    <div class="col-sm-6">
-                        <label for="active" class="form-label">Activo</label>
-                        <select id="cboactive" class="form-select">
-                            <option value="1">Si</option>
-                            <option value="0">No</option>
-                        </select>
+
+                    <div class="col-sm-3">
+                        <div class="mb-2">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="txtnombre" name="nombre" />
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Descripción</label>
+                            <textarea type="text" class="form-control" id="txtdescripcion" name="descripcion" style="height:125px;resize:none"></textarea>
+                        </div>
                     </div>
-                </div>
+
+                    <div class="col-sm-3">
+                        <div class="mb-2">
+                            <label class="form-label">Marca</label>
+                            <select id="cbomarca" class="form-select">
+                            </select>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Categoría</label>
+                            <select id="cbocategoria" class="form-select">
+                            </select>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Precio</label>
+                            <input type="text" class="form-control" id="txtprecio" name="precio" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="mb-2">
+                            <label class="form-label">Stock</label>
+                            <input type="number" class="form-control" id="txtstock" name="stock" />
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Activo</label>
+                            <select id="cboactive" class="form-select">
+                                <option value="1">Si</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
 
                 <div class="row mt-2">
                     <div class="col-12">
@@ -82,6 +125,17 @@
 
         var tablaData;
         var rowSelected;
+
+        function mostrarImagen(input) {
+            if (input.files) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $("#img_producto").attr("src",e.target.result).witdh(200).height(197)
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
 
        tablaData = $("#tabla").DataTable({
            responsive: true,
@@ -117,10 +171,48 @@
            }
        });
 
+       // OBTENER LA LISTA DE MARCAS PARA MOSTRAR EN EL SELECT
+        jQuery.ajax({
+            url: '@Url.Action("ListarMarcas", "Mantenedor")',
+            type: "GET",
+            data: null,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                $("<option>").attr({ "value": "0", "disabled":"true" }).text("Seleccionar").appendTo("#cbomarca");
+
+                $.each(data.data, function (index, item) {
+                    $("<option>").attr({ "value" : item.IdMarca }).text(item.Descripcion).appendTo("#cbomarca"); // Crear un option para agreagr al select
+                });
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        })
+
+        // OBTENER LA LISTA DE CATEGORIAS PARA MOSTRAR EN EL SELECT
+        jQuery.ajax({
+            url: '@Url.Action("ListarCategorias", "Mantenedor")',
+            type: "GET",
+            data: null,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                $("<option>").attr({ "value": "0", "disabled": "true" }).text("Seleccionar").appendTo("#cbocategoria");
+                $.each(data.data, function (index, item) {
+                    $("<option>").attr({ "value": item.IdMarca }).text(item.Descripcion).appendTo("#cbocategoria"); // Crear un option para agreagr al select
+                });
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        })
+
+        // 
         function abrirModal(json) {
 
             $("#txtid").val(0);
-            $("#txtdescription").val("");
+            $("#img_producto").removeAttr("src");
             $("#cboactive").val(1);
             $("#mensajeError").hide();
 
@@ -133,14 +225,11 @@
             $("#formModal").modal("show");
         }
 
-        /* Con estas instrucciones se hace un llamado especifico solo a  la fila donde esta el boton de editar*/
+
         $("#tabla tbody").on("click", '.btn-edit', function () {
             /* Con el this, hago referencia a la misma tabla */
             rowSelected = $(this).closest("tr");
 
-            /* Devuelve la información que hay en una fila de la tabla.
-            Por ejemplo, si le doy click al icono de editar 1, entonces esos datos se van a mostrar
-            */
             var data = tablaData.row(rowSelected).data();
             abrirModal(data);
         })
@@ -176,7 +265,7 @@
                     error: function (error) {
                         console.log(error)
                     }
-})
+                })
             })
         })
 
