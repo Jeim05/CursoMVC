@@ -27,8 +27,8 @@ namespace CapaDatos
                     sb.AppendLine("c.IdCategoria, c.Descripcion[DesCategoria],");
                     sb.AppendLine("p.Precio, p.Stock, p.RutaImagen, p.NombreImagen, p.Activo");
                     sb.AppendLine("FROM PRODUCTO p");
-                    sb.AppendLine("inner join MARCA m on m.IdMarca = p.IdCategoria");
-                    sb.AppendLine("inner join CATEGORIA c on c.IdCategoria = p.IdCategoria*/");
+                    sb.AppendLine("inner join MARCA m on m.IdMarca = p.IdMarca");
+                    sb.AppendLine("inner join CATEGORIA c on c.IdCategoria = p.IdCategoria");
 
 
                     SqlCommand cmd = new SqlCommand(sb.ToString(), oconexion);

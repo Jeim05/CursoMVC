@@ -147,7 +147,18 @@
                dataType: "json",
            },
            "columns": [
+               { "data": "Nombre" },
                { "data": "Descripcion" },
+               {
+                   "data": "oMarca", "render": function (data) {
+                    return data.Descripcion
+                   }
+               },
+               {
+                   "data": "oCategoria", "render": function (data) {
+                     return data.Descripcion
+                   }
+               },
                {
                    "data": "Activo", "render": function (value) {
                        if (value) {
