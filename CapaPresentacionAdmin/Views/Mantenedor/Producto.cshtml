@@ -142,7 +142,7 @@
            ordering: false,
            "ajax": {
               /* Aqui lo que hace ajax es traer los valores*/
-               url: '@Url.Action("ListarMarcas", "Mantenedor")',
+               url: '@Url.Action("ListarProductos", "Mantenedor")',
                type: "GET",
                dataType: "json",
            },
@@ -200,7 +200,7 @@
             success: function (data) {
                 $("<option>").attr({ "value": "0", "disabled": "true" }).text("Seleccionar").appendTo("#cbocategoria");
                 $.each(data.data, function (index, item) {
-                    $("<option>").attr({ "value": item.IdMarca }).text(item.Descripcion).appendTo("#cbocategoria"); // Crear un option para agreagr al select
+                    $("<option>").attr({ "value": item.IdCategoria }).text(item.Descripcion).appendTo("#cbocategoria"); // Crear un option para agreagr al select
                 });
             },
             error: function (error) {
@@ -218,12 +218,19 @@
             $("#txtdescripcion").val("");
             $("#cbomarca").val($("#cbomarca option:first").val());
             $("#cbocategoria").val($("#cbocategoria option:first").val());
+            $("#txtprecio").val("");
+            $("#txtstock").val("");
             $("#cboactive").val(1);
             $("#mensajeError").hide();
 
             if (json != null) {
-                $("#txtid").val(json.IdMarca);
-                $("#txtdescription").val(json.Descripcion);
+                $("#txtid").val(json.IdProducto);
+                $("#txtnombre").val(json.Nombre);
+                $("#txtdescripcion").val(json.Descripcion);
+                $("#cbomarca").val(json.oMarca.IdMarca);
+                $("#cbocategoria").val(json.oCategoria.IdCategoria);
+                $("#txtprecio").val(json.Precio);
+                $("#txtstock").val(json.Stock); 
                 $("#cboactive").val(json.Activo == true ? 1: 0);
             }
 
@@ -275,28 +282,45 @@
         })
 
         function Guardar() {
+            var ImagenSeleccionada = $("#fileProducto")[0].files[0]; 
 
-            var Marca = {
-                IdMarca: $("#txtid").val(),
-                Descripcion: $("#txtdescription").val(),
+            var Producto = {
+                IdProducto: $("#txtid").val(),
+                Nombre: $("#txtnombre").val(),
+                Descripcion: $("#txtdescripcion").val(),
+                oMarca: {
+                    IdMarca: $("#cbomarca option:selected").val(),
+                    Descripcion: $("#cbomarca option:selected").text() 
+                },
+                oCategoria: {
+                    IdCategoria: $("#cbocategoria option:selected").val(),
+                    Descripcion: $("#cbocategoria option:selected").text()
+                },
+                PrecioTexto: $("#txtprecio").val(),
+                Precio: $("#txtprecio").val(),
+                Stock: $("#txtstock").val(),
                 Activo: $("#cboactive").val() == 1 ? true: false,
             }
 
+            var request = new FormData();
+            request.append("objeto", JSON.stringify(Producto))
+            request.append("archivoImagen", ImagenSeleccionada)
+
             jQuery.ajax({
-                url: '@Url.Action("GuardarMarca", "Mantenedor")',
+                url: '@Url.Action("GuardarProducto", "Mantenedor")',
                 type: "POST",
-                data: JSON.stringify({ objeto : Marca}), // Se usa el stringify para convertirlo a texto
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
+                data: request,
+                processData: false,
+                contentType: false,
                 success: function (data) {
                     $(".modal-body").LoadingOverlay("hide")
 
-                    if (Marca.IdMarca == 0) {
+                    if (Producto.IdProducto == 0) {
 
-                        if (data.resultado != 0) {
-                            Marca.IdMarca = data.resultado;
+                        if (data.idGenerado != 0) {
+                            Producto.IdProducto = data.idGenerado;
 
-                            tablaData.row.add(Marca).draw(false);
+                            tablaData.row.add(Producto).draw(false);
                             $("#formModal").modal("hide");
                         } else {
                             $("#mensajeError").text(data.mensaje);
@@ -304,8 +328,8 @@
                         }
 
                     } else {
-                        if (data.resultado) { // Editar ya devuelve un bool por eso hacemos de esta forma
-                            tablaData.row(rowSelected).data(Marca).draw(false);
+                        if (data.idGenerado) { // Editar ya devuelve un bool por eso hacemos de esta forma
+                            tablaData.row(rowSelected).data(Producto).draw(false);
                             rowSelected = null;
                             $("#formModal").modal("hide");
                         } else {
