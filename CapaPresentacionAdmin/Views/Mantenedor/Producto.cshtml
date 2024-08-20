@@ -266,7 +266,7 @@
 
             swal({
                 title: "¿Esta seguro?",
-                text: "¿Desea eliminar la categori?",
+                text: "¿Desea eliminar el producto?",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonClass: "btn-primary",
@@ -275,7 +275,7 @@
                 closeOnConfirm: true
             }, function () {
                 jQuery.ajax({
-                    url: '@Url.Action("EliminarMarca", "Mantenedor")',
+                    url: '@Url.Action("EliminarProducto", "Mantenedor")',
                     type: "POST",
                     data: JSON.stringify({ id: data.IdMarca }), // Se usa el stringify para convertirlo a texto
                     dataType: "json",
