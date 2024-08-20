@@ -4,12 +4,15 @@ using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 
 using CapaEntidad;
 using CapaNegocio;
 using Newtonsoft.Json;
+
+using System.Security.AccessControl;
 
 namespace CapaPresentacionAdmin.Controllers
 {
@@ -180,10 +183,15 @@ namespace CapaPresentacionAdmin.Controllers
                     string ruta_guardar = ConfigurationManager.AppSettings["ServidorFotos"];
                     string extension = Path.GetExtension(archivoImagen.FileName);
                     string nombre_imagen = string.Concat(oProducto.IdProducto.ToString(),extension);
+                    DirectoryInfo di = new DirectoryInfo(ruta_guardar);
+                    DirectorySecurity ds = di.GetAccessControl();
+                    ds.AddAccessRule(new FileSystemAccessRule("Everyone", FileSystemRights.FullControl, AccessControlType.Allow));
+                    di.SetAccessControl(ds);
 
                     try
                     {
-                        archivoImagen.SaveAs(Path.Combine(ruta_guardar));
+                      
+                        archivoImagen.SaveAs(Path.Combine(di.FullName));
 
                     }
                     catch (Exception ex)
