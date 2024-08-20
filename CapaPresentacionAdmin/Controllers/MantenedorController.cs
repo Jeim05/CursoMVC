@@ -183,15 +183,15 @@ namespace CapaPresentacionAdmin.Controllers
                     string ruta_guardar = ConfigurationManager.AppSettings["ServidorFotos"];
                     string extension = Path.GetExtension(archivoImagen.FileName);
                     string nombre_imagen = string.Concat(oProducto.IdProducto.ToString(),extension);
-                    DirectoryInfo di = new DirectoryInfo(ruta_guardar);
+                    /*DirectoryInfo di = new DirectoryInfo(ruta_guardar);
                     DirectorySecurity ds = di.GetAccessControl();
-                    ds.AddAccessRule(new FileSystemAccessRule("LAPTOP-2M1PFTDM\\Jeimmy Lopez", FileSystemRights.FullControl, AccessControlType.Allow));
-                    di.SetAccessControl(ds);
+                    ds.AddAccessRule(new FileSystemAccessRule("Everyone", FileSystemRights.FullControl, AccessControlType.Allow));
+                    di.SetAccessControl(ds);*/
 
                     try
                     {
                       
-                        archivoImagen.SaveAs(Path.Combine(di.FullName));
+                        archivoImagen.SaveAs(Path.Combine(ruta_guardar));
 
                     }
                     catch (Exception ex)
