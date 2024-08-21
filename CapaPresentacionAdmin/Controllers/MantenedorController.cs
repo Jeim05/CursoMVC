@@ -230,7 +230,7 @@ namespace CapaPresentacionAdmin.Controllers
                 textoBase64 = textoBase64,
                 extension = Path.GetExtension(oProducto.NombreImagen)
             },
-            JsonRequestBehavior.AllowGet
+             JsonRequestBehavior.AllowGet
             );
         }
 

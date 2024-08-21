@@ -252,7 +252,7 @@
             errorLabelContainer: ".alert-danger"
         })
 
-
+         // ABRIR MODAL
         function abrirModal(json) {
 
             $("#txtid").val(0);
@@ -275,9 +275,30 @@
                 $("#cbocategoria").val(json.oCategoria.IdCategoria);
                 $("#txtprecio").val(json.Precio);
                 $("#txtstock").val(json.Stock); 
-                $("#cboactive").val(json.Activo == true ? 1: 0);
-            }
+                $("#cboactive").val(json.Activo == true ? 1 : 0);
 
+                jQuery.ajax({
+                    url: '@Url.Action("ImagenProducto", "Mantenedor")',
+                    type: "POST",
+                    data: JSON.stringify({id: json.IdProducto}),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        if (data.conversion) {
+                            $("#img_producto").attr({ "src": "data:image/" + data.extension + ";base64," + data.textobase64 });
+                        }
+                    },
+                    error: function (error) {
+                        $("#img_producto").LoadingOverlay("hide");
+                        $("#mensajeError").show();
+                        $("#mensajeError").text("Error al mostrar imagen");
+
+                    },
+                    beforeSend: function () {
+                        //$("#img_producto").LoadingOverlay("show");
+                    },
+                })
+            }
             $("#formModal").modal("show");
         }
 
@@ -316,7 +337,6 @@
                         } else {
                             swal("No se pudo eliminar", data.mensaje, error)
                         }
-
                     },
                     error: function (error) {
                         console.log(error)
@@ -402,6 +422,28 @@
             })
         }
 
+        /*
+         jQuery.ajax({
+     url: '',
+     type: "",
+     data: null,
+     dataType: "json",
+     contentType: "application/json; charset=utf-8",
+     success: function (data) {
+         console.log(data)
+     },
+     error: function (error) {
+         console.log(error)
+     },
+     beforeSend: function () {
+
+     },
+ })
+        */
+
     </script>
+
+    
 }
+
 
