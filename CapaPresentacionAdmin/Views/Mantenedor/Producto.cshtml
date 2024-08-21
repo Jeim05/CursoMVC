@@ -328,7 +328,7 @@
                 jQuery.ajax({
                     url: '@Url.Action("EliminarProducto", "Mantenedor")',
                     type: "POST",
-                    data: JSON.stringify({ id: data.IdMarca }), // Se usa el stringify para convertirlo a texto
+                    data: JSON.stringify({ id: data.IdProducto }), // Se usa el stringify para convertirlo a texto
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     success: function (data) {
