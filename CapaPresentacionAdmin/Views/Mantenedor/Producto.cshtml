@@ -105,9 +105,7 @@
 
                 <div class="row mt-2">
                     <div class="col-12">
-                        <div id="mensajeError" class="alert alert-danger" role="alert">
-                            A simple danger alert—check it out!
-                        </div>
+                        <div id="mensajeError" class="alert alert-danger" role="alert"></div>
 
                     </div>
                 </div>
@@ -222,7 +220,39 @@
             }
         })
 
-        // 
+        //VALIDACIONES DE CAMPOS
+        jQuery.validator.addMethod("preciodecimal", function (value, element) {
+            return this.optional(element) || /^\d{0,7}(\. \d{0,2})?$/i.test(value);
+        }, "El formato correcto es ##.##"); 
+
+        $("#contenedor").validate({
+            rules: {
+                nombre: {
+                    required: true
+                },
+                descripcion: {
+                    required: true
+                },
+                precio: {
+                    required: true,
+                    preciodecimal: true
+                },
+                stock: {
+                    required: true,
+                    number: true
+                },
+            },
+            messages: {
+                nombre: "- El campo nombre es obligatorio",
+                descripcion: "- El campo descripción es obligatorio",
+                precio: { required: "- El campo precio es obligatorio", preciodecimal: "- El formato correcto es ##.##" },
+                stock: { required: "- El campo stock es obligatorio", preciodecimal: "- Debe ingresar solo números" }
+            },
+            errorElement: "div",
+            errorLabelContainer: ".alert-danger"
+        })
+
+
         function abrirModal(json) {
 
             $("#txtid").val(0);
@@ -296,6 +326,11 @@
         })
 
         function Guardar() {
+
+            if (!$("#contenedor").valid()) {
+                return;
+            }
+
             var ImagenSeleccionada = $("#fileProducto")[0].files[0]; 
 
             var Producto = {
