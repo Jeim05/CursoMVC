@@ -17,6 +17,7 @@ namespace CapaPresentacionAdmin
                         "~/Scripts/DataTables/dataTables.responsive.js",
                         "~/Scripts/sweetalert.min.js",
                         "~/Scripts/loadingoverlay/loadingoverlay.min.js",
+                        "~/Scripts/jquery.validate.js",
                         "~/Scripts/scripts.js")); // Luego esto se debe poner en el layout
 
 
