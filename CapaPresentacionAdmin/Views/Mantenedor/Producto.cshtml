@@ -312,8 +312,8 @@
         })
 
         $("#tabla tbody").on("click", '.btn-delete', function () {
-            var marcaSeleccionada = $(this).closest("tr");
-            var data = tablaData.row(marcaSeleccionada).data();
+            var productoSeleccionado = $(this).closest("tr");
+            var data = tablaData.row(productoSeleccionado).data();
 
             swal({
                 title: "¿Esta seguro?",
@@ -333,7 +333,7 @@
                     contentType: "application/json; charset=utf-8",
                     success: function (data) {
                         if (data.resultado){
-                            tablaData.row(marcaSeleccionada).remove().draw();
+                            tablaData.row(productoSeleccionado).remove().draw();
                         } else {
                             swal("No se pudo eliminar", data.mensaje, error)
                         }
