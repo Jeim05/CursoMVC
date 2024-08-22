@@ -223,7 +223,7 @@
         //VALIDACIONES DE CAMPOS
         jQuery.validator.addMethod("preciodecimal", function (value, element) {
             return this.optional(element) || /^\d{0,7}(\. \d{0,2})?$/i.test(value);
-        }, "El formato correcto es ##.##"); 
+        }, "El formato correcto es ##.##");
 
         $("#contenedor").validate({
             rules: {
@@ -274,7 +274,7 @@
                 $("#cbomarca").val(json.oMarca.IdMarca);
                 $("#cbocategoria").val(json.oCategoria.IdCategoria);
                 $("#txtprecio").val(json.Precio);
-                $("#txtstock").val(json.Stock); 
+                $("#txtstock").val(json.Stock);
                 $("#cboactive").val(json.Activo == true ? 1 : 0);
 
                 jQuery.ajax({
@@ -351,7 +351,7 @@
                 return;
             }
 
-            var ImagenSeleccionada = $("#fileProducto")[0].files[0]; 
+            var ImagenSeleccionada = $("#fileProducto")[0].files[0];
 
             var Producto = {
                 IdProducto: $("#txtid").val(),
@@ -359,7 +359,7 @@
                 Descripcion: $("#txtdescripcion").val(),
                 oMarca: {
                     IdMarca: $("#cbomarca option:selected").val(),
-                    Descripcion: $("#cbomarca option:selected").text() 
+                    Descripcion: $("#cbomarca option:selected").text()
                 },
                 oCategoria: {
                     IdCategoria: $("#cbocategoria option:selected").val(),
@@ -422,9 +422,9 @@
             })
         }
 
-        /*
+        @*
          jQuery.ajax({
-     url: '',
+     url: '@Url.Action("","")',
      type: "",
      data: null,
      dataType: "json",
@@ -439,7 +439,7 @@
 
      },
  })
-        */
+        *@
 
     </script>
 

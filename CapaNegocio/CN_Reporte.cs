@@ -12,9 +12,9 @@ namespace CapaNegocio
     public class CN_Reporte
     {
         private CD_Reporte objCapaDatos = new CD_Reporte();
-        public Dashboard verDashboard()
+        public Dashboard VerDashboard()
         {
-            return objCapaDatos.verDashboard(); 
+            return objCapaDatos.VerDashboard(); 
         }
     }
 }

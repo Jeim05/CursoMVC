@@ -11,7 +11,7 @@ namespace CapaDatos
 {
     public class CD_Reporte
     {
-        public Dashboard verDashboard()
+        public Dashboard VerDashboard()
         {
             Dashboard objeto = new Dashboard();
 
@@ -33,7 +33,7 @@ namespace CapaDatos
                             {
                                 TotalCliente = Convert.ToInt32(reader["TotalCliente"]),
                                 TotalVenta = Convert.ToInt32(reader["TotalVenta"]),
-                                TotalProducto = Convert.ToInt32(reader["TotalPoducto"]),
+                                TotalProducto = Convert.ToInt32(reader["TotalProducto"]),
                             }; 
                         }
                     }
