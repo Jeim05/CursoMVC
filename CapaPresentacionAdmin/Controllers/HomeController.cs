@@ -114,7 +114,7 @@ namespace CapaPresentacionAdmin.Controllers
                     wb.Worksheets.Add(dt);
                     using (MemoryStream stream = new MemoryStream()) { 
                     wb.SaveAs(stream);
-                        //return File(stream.ToArray());
+                        return File(stream.ToArray(),"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","Reporte venta"+DateTime.Now.ToString()+".xlsx");
                     }
                 }
             }
