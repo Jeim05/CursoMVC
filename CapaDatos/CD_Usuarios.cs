@@ -30,7 +30,7 @@ namespace CapaDatos
                     while (reader.Read())
                         {
                             lista.Add(
-                                new Usuario
+                                new Usuario()
                                 {
                                     IdUsuario = Convert.ToInt32(reader["IdUsuario"]),
                                     Nombres = reader["Nombres"].ToString(),

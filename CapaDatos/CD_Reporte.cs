@@ -6,11 +6,55 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace CapaDatos
 {
     public class CD_Reporte
     {
+        public List<Reporte> Ventas(string fechainicio, string fechafin, string idtransaccion)
+        {
+            List<Reporte> lista = new List<Reporte>();
+
+            try
+            {
+                using (SqlConnection oconexion = new SqlConnection(Conexion.conexion))
+                {
+                    SqlCommand cmd = new SqlCommand("sp_ReporteVentas", oconexion);
+                    cmd.Parameters.AddWithValue("fechainicio", fechainicio);
+                    cmd.Parameters.AddWithValue("fechafin", fechafin);
+                    cmd.Parameters.AddWithValue("idtransaccion", idtransaccion);
+                    cmd.CommandType = CommandType.StoredProcedure; 
+                    oconexion.Open();
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            lista.Add(
+                                new Reporte()
+                                {
+                                    FechaVenta = reader["FechaVenta"].ToString(),
+                                    Cliente = reader["Cliente"].ToString(),
+                                    Producto = reader["Producto"].ToString(),
+                                    Precio = Convert.ToDecimal(reader["Precio"],new CultureInfo("es-CR")),
+                                    Cantidad = Convert.ToInt32(reader["Cantidad"].ToString()),
+                                    Total = Convert.ToDecimal(reader["Total"], new CultureInfo("es-CR")),
+                                    IdTransaccion = reader["IdTransaccion"].ToString()
+                                });
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                lista = new List<Reporte>();
+            }
+
+            return lista;
+        }
+
+
         public Dashboard VerDashboard()
         {
             Dashboard objeto = new Dashboard();
