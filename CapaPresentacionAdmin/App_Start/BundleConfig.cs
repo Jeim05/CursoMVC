@@ -18,6 +18,7 @@ namespace CapaPresentacionAdmin
                         "~/Scripts/sweetalert.min.js",
                         "~/Scripts/loadingoverlay/loadingoverlay.min.js",
                         "~/Scripts/jquery.validate.js",
+                        "~/Scripts/jquery-ui-1-13.3.js",
                         "~/Scripts/scripts.js")); // Luego esto se debe poner en el layout
 
 
@@ -37,6 +38,8 @@ namespace CapaPresentacionAdmin
                 "~/Content/site.css",
                 "~/Content/DataTables/css/jquery.dataTables.css",
                  "~/Content/DataTables/css/responsive.dataTables.css",
+                 "~/Content/themes/base/jquery-ui.css",
+                 "~/Content/themes/base/datepicker.css",
                  "~/Content/sweetalert.css"
                  ));
         }
