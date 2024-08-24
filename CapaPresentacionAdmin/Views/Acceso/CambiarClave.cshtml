@@ -21,8 +21,8 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Cambiar Contraseña</h3></div>
                                     <div class="card-body">
-                                        <form>
-                                         <input class="form-control" type="text" disabled value="@TempData["IdUsuario"]"  />
+                                        <form action="@Url.Action("CambiarClave","Acceso")" method="post">
+                                         <input class="form-control" type="text" disabled value="@TempData["IdUsuario"]" name="idUsuario"  />
 
                                             <div class="row mb-3">
                                                 <div class="col-md-12">
