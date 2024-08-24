@@ -55,11 +55,13 @@ namespace CapaPresentacionAdmin.Controllers
           Usuario oUsuario = new Usuario();
           oUsuario = new CN_Usuarios().Listar().Where(u => u.IdUsuario == int.Parse(idUsuario) ).FirstOrDefault();
 
-          if(oUsuario.Clave != CN_Recursos.ConvertirSha256(claveActual)){
+          if(oUsuario.Clave != CN_Recursos.ConvertirSha256(claveActual)) {
+             TempData["IdUsuario"] = oUsuario.IdUsuario;
              ViewBag.Error = "La contraseña actual no es correcta";
              return View();
           }
-          else if(nuevaClave != confirmarClave){
+          else if(nuevaClave != confirmarClave) {
+             TempData["IdUsuario"] = oUsuario.IdUsuario;
              ViewBag.Error = "Las contraseñas no coinciden";
              return View();
           }
