@@ -48,5 +48,23 @@ namespace CapaPresentacionAdmin.Controllers
                 return RedirectToAction("Index","Home");
             }
         }
+
+        [HttpPost]
+        public ActionResult CambiarClave(string idUsuario, string claveActual, string nuevaClave, string confirmarClave)
+        {
+          Usuario oUsuario = new Usuario();
+          oUsuario = new CN_Usuarios().Listar().Where(u => u.IdUsuario == int.Parse(idUsuario) ).FirstOrDefault();
+
+          if(oUsuario.Clave != CN_Recursos.ConvertirSha256(claveActual)){
+             ViewBag.Error = "La contraseña actual no es correcta";
+             return View();
+          }
+          else if(nuevaClave != confirmarClave){
+             ViewBag.Error = "Las contraseñas no coinciden";
+             return View();
+          }
+         
+            return View();
+        }
     }
 }
