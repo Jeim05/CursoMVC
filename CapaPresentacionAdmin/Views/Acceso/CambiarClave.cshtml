@@ -46,10 +46,21 @@
                                                 <div class="col-md-12">
                                                     <div class="form-floating mb-3 mb-md-0">
                                                         <input class="form-control" id="inputPassword" type="password" name="confirmarClave" />
-                                                        <label for="inputPassword">Confirman Contraseña</label>
+                                                        <label for="inputPassword">Confirmar nueva Contraseña</label>
                                                     </div>
                                                 </div> 
                                             </div>
+                                          @{
+                                            if (ViewBag.Error != null)
+                                            {
+                                             <div class="row mb-3">
+                                                  <div class="alert alert-danger" role="alert">
+                                                        @ViewBag.Error
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+
                                             <div class="mt-4 mb-0">
                                                 <div class="d-grid"><button class="btn btn-primary btn-block" type="submit">Cambiar Contraseña</button></div>
                                             </div>
