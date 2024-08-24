@@ -57,11 +57,13 @@ namespace CapaPresentacionAdmin.Controllers
 
           if(oUsuario.Clave != CN_Recursos.ConvertirSha256(claveActual)) {
              TempData["IdUsuario"] = oUsuario.IdUsuario;
+             ViewData["vactual"] = "";
              ViewBag.Error = "La contraseña actual no es correcta";
              return View();
           }
           else if(nuevaClave != confirmarClave) {
              TempData["IdUsuario"] = oUsuario.IdUsuario;
+              ViewData["vactual"] = claveActual;
              ViewBag.Error = "Las contraseñas no coinciden";
              return View();
           }
