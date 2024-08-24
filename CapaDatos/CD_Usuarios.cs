@@ -164,7 +164,7 @@ namespace CapaDatos
             return resultado;
         }
 
-         public bool ReestablecerClaveint idUsuario, string clave, out string Mensaje)
+         public bool ReestablecerClave (int idUsuario, string clave, out string Mensaje)
         {
             bool resultado = false;
             Mensaje= string.Empty;

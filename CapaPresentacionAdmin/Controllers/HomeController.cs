@@ -27,7 +27,8 @@ namespace CapaPresentacionAdmin.Controllers
 
         // Devolvemos la lista de usuarios que viene desde la capa de Negocio
         [HttpGet]
-        public JsonResult ListarUsuarios() {
+        public JsonResult ListarUsuarios()
+        {
             List<Usuario> oLista = new List<Usuario>();
             oLista = new CN_Usuarios().Listar();
 
@@ -45,7 +46,8 @@ namespace CapaPresentacionAdmin.Controllers
                 resultado = new CN_Usuarios().Registrar(objeto, out mensaje); // Se llama al metodo de la capa de negocio para registrar el usuario
 
             }
-            else {
+            else
+            {
                 resultado = new CN_Usuarios().Editar(objeto, out mensaje);
             }
 
@@ -86,7 +88,7 @@ namespace CapaPresentacionAdmin.Controllers
             List<Reporte> oLista = new List<Reporte>();
             oLista = new CN_Reporte().Ventas(fechainicio, fechafin, idtransaccion);
             DataTable dt = new DataTable();
-            
+
             dt.Locale = new System.Globalization.CultureInfo("es-CR");
             dt.Columns.Add("Fecha Venta", typeof(string));
             dt.Columns.Add("Cliente", typeof(string));
@@ -96,9 +98,10 @@ namespace CapaPresentacionAdmin.Controllers
             dt.Columns.Add("Total", typeof(decimal));
             dt.Columns.Add("IdTransaccion", typeof(string));
 
-            foreach(Reporte rp in oLista) { 
-            dt.Rows.Add(new object[]
+            foreach (Reporte rp in oLista)
             {
+                dt.Rows.Add(new object[]
+                {
                 rp.FechaVenta,
                 rp.Cliente,
                 rp.Producto,
@@ -107,18 +110,21 @@ namespace CapaPresentacionAdmin.Controllers
                 rp.Total,
                 rp.IdTransaccion
 
-            });
-                dt.TableName = "Datos";
+                });
+            }
+            dt.TableName = "Datos";
 
-                using (XLWorkbook wb = new XLWorkbook()) { 
-                    wb.Worksheets.Add(dt);
-                    using (MemoryStream stream = new MemoryStream()) { 
+            using (XLWorkbook wb = new XLWorkbook())
+            {
+                wb.Worksheets.Add(dt);
+                using (MemoryStream stream = new MemoryStream())
+                {
                     wb.SaveAs(stream);
-                        return File(stream.ToArray(),"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","Reporte venta"+DateTime.Now.ToString()+".xlsx");
-                    }
+                    return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Reporte venta" + DateTime.Now.ToString() + ".xlsx");
                 }
             }
+
         }
 
-     }
+    }
 }
