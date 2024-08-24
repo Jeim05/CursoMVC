@@ -90,7 +90,7 @@ Nombres varchar(100),
 Apellidos varchar(100),
 Correo varchar(100),
 Clave varchar(150),
-Reestablecer bit default 0,
+Reestablecer bit default 1,
 Activo bit default 1,
 FechaRegistro datetime default getdate()
 )
