@@ -110,5 +110,11 @@ namespace CapaPresentacionAdmin.Controllers
          return View();
         }
        }
+
+       public ActionResult CerrarSesion(){
+         return RedirectToAction("Index", "Acceso");
+       }
+
+       
     }
 }
