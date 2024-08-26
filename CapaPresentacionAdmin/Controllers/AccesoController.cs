@@ -74,7 +74,7 @@ namespace CapaPresentacionAdmin.Controllers
             nuevaClave = CN_Recursos.ConvertirSha256(nuevaClave);
 
             string mensaje = string.Empty;
-            bool respuesta = new CN_Usuarios().ReestablecerClave(int.Parse(idusuario), nuevaClave, out mensaje);
+            bool respuesta = new CN_Usuarios().CambiarClave(int.Parse(idusuario), nuevaClave, out mensaje);
             if (respuesta) {
               return RedirectToAction("Index");
             }
@@ -87,5 +87,28 @@ namespace CapaPresentacionAdmin.Controllers
 
             return View();
         }
+
+       [HttpPost]
+       public ActionResult Reestablecer(string correo){
+       Usuario oUsuario = new Usuario();
+       oUsuario = new CN_Usuarios().Listar().Where(item => item.Correo == correo).FirstOrDefault();
+
+       if(oUsario == null){
+       ViewBag.Error = "No se encontró un usuario relacionado a ese correo";
+        return View();
+       }
+
+        string mensaje = string.Empty;
+        bool respuesta = new CN_Usuarios().ReestablecerClave(oUsuario.IdUsuario, correo, out mensaje);
+
+         if (respuesta) {
+       ViewBag.Error = null;
+        return RedirectToAction("Index", "Acceso");
+        }
+        else{
+         ViewBag.Error = mensaje;
+         return View();
+        }
+       }
     }
 }
