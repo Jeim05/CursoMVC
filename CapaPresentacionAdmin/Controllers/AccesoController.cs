@@ -73,6 +73,12 @@ namespace CapaPresentacionAdmin.Controllers
             ViewData["vactual"] = "";
             nuevaClave = CN_Recursos.ConvertirSha256(nuevaClave);
 
+            string mensaje = string.Empty;
+            bool respuesta = new CN_Usuarios().ReestablecerClave(int.Parse(idusuario), nuevaClave, out mensaje);
+            if (respuesta) {
+             // return
+            }
+
             return View();
         }
     }
