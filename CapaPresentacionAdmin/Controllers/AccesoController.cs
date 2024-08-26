@@ -76,7 +76,13 @@ namespace CapaPresentacionAdmin.Controllers
             string mensaje = string.Empty;
             bool respuesta = new CN_Usuarios().ReestablecerClave(int.Parse(idusuario), nuevaClave, out mensaje);
             if (respuesta) {
-             // return
+              return RedirectToAction("Index");
+            }
+            else{
+               TempData["IdUsuario"] = idusuario;
+                ViewBag.Error = mensaje;
+                return View(); // Retorna la misma vista en la que estamos
+                
             }
 
             return View();
