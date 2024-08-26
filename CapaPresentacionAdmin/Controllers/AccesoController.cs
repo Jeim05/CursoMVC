@@ -50,24 +50,29 @@ namespace CapaPresentacionAdmin.Controllers
         }
 
         [HttpPost]
-        public ActionResult CambiarClave(string idUsuario, string claveActual, string nuevaClave, string confirmarClave)
+        public ActionResult CambiarClave(string idusuario, string claveActual, string nuevaClave, string confirmarClave)
         {
-          Usuario oUsuario = new Usuario();
-          oUsuario = new CN_Usuarios().Listar().Where(u => u.IdUsuario == int.Parse(idUsuario) ).FirstOrDefault();
+            Usuario oUsuario = new Usuario();
+            oUsuario = new CN_Usuarios().Listar().Where(u => u.IdUsuario == int.Parse(idusuario)).FirstOrDefault();
 
-          if(oUsuario.Clave != CN_Recursos.ConvertirSha256(claveActual)) {
-             TempData["IdUsuario"] = oUsuario.IdUsuario;
-             ViewData["vactual"] = "";
-             ViewBag.Error = "La contraseña actual no es correcta";
-             return View();
-          }
-          else if(nuevaClave != confirmarClave) {
-             TempData["IdUsuario"] = oUsuario.IdUsuario;
-              ViewData["vactual"] = claveActual;
-             ViewBag.Error = "Las contraseñas no coinciden";
-             return View();
-          }
-         
+            if (oUsuario.Clave != CN_Recursos.ConvertirSha256(claveActual))
+            {
+                TempData["IdUsuario"] = idusuario;
+                ViewData["vactual"] = "";
+                ViewBag.Error = "La contraseña actual no es correcta";
+                return View();
+            }
+            else if (nuevaClave != confirmarClave)
+            {
+                TempData["IdUsuario"] = idusuario;
+                ViewData["vactual"] = claveActual;
+                ViewBag.Error = "Las contraseñas no coinciden";
+                return View();
+            }
+
+            ViewData["vactual"] = "";
+            nuevaClave = CN_Recursos.ConvertirSha256(nuevaClave);
+
             return View();
         }
     }
