@@ -107,10 +107,46 @@ namespace CapaPresentacionTienda.Controllers
         }
 
          [HttPost]
-        public ActionResult CambiarClave(string idcliente, string claveActual, string cleve)
+        public ActionResult CambiarClave(string idcliente, string claveActual, string nuevaClave, string confirmarClave)
         {
-            return View();
+           Cliente oCliente = new Cliente();
+            oCliente = new CN_Cliente().Listar().Where(u => u.IdUsuario == int.Parse(idcliente)).FirstOrDefault();
+
+            if (oCliente.Clave != CN_Recursos.ConvertirSha256(claveActual))
+            {
+                TempData["IdCliente"] = idusuario;
+                ViewData["vactual"] = "";
+                ViewBag.Error = "La contraseña actual no es correcta";
+                return View();
+            }
+            else if (nuevaClave != confirmarClave)
+            {
+                TempData["IdCliente"] = idcliente;
+                ViewData["vactual"] = claveActual;
+                ViewBag.Error = "Las contraseñas no coinciden";
+                return View();
+            }
+
+            ViewData["vactual"] = "";
+            nuevaClave = CN_Recursos.ConvertirSha256(nuevaClave);
+
+            string mensaje = string.Empty;
+            bool respuesta = new CN_Cliente().CambiarClave(int.Parse(idcliente), nuevaClave, out mensaje);
+            if (respuesta) {
+              return RedirectToAction("Index");
+            }
+            else{
+               TempData["IdCliente"] = idcliente;
+                ViewBag.Error = mensaje;
+                return View(); // Retorna la misma vista en la que estamos
+                
+            }
         }
+
+          public ActionResult CerrarSesion(){
+            FormsAuthentication.SignOut();
+         return RedirectToAction("Index", "Acceso");
+       }
         
     }
 }
