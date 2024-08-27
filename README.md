@@ -1,10 +1,16 @@
 # Curso ASP .NET
-Curso de sistema web de un Carrito de Compras, donde se implementan diferentes modulos para la administración de los usuarios, categorias, productos, entre otros. 
+Curso de <a href="https://www.youtube.com/watch?v=16N5OhcrLws&list=PLx2nia7-PgoDptcrh4k4ZStjpVLZbS7rU">Sistema Web en ASP .NET MVC Y SQL Server</a> , de Carrito de Compras, donde se implementan diferentes modulos para la administración de los usuarios, categorias, productos, entre otros. 
 
 ## Habilidades adquiridas:
-- Asp .net
-- SQL Server
-- Bootstrap
+- Implementación del modelo de Capas
+- C#
+- Asp .Net
+- SQL Server (Procedimientos almacenados, query)
+- Bootstrap 5
 - JQuery
 - ADO .NET
-- Implementación del modelo de Capas
+- Manejo de sesiones en el login.
+- Instalación de Dependencias
+
+
+  Referencia del curso: https://www.youtube.com/watch?v=16N5OhcrLws&list=PLx2nia7-PgoDptcrh4k4ZStjpVLZbS7rU
