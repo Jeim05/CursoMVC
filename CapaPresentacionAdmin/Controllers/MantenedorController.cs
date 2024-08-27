@@ -16,6 +16,7 @@ using System.Security.AccessControl;
 
 namespace CapaPresentacionAdmin.Controllers
 {
+    [Authorize]
     public class MantenedorController : Controller
     {
         // GET: Mantenedor
