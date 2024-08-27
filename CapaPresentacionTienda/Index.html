@@ -13,13 +13,25 @@
                                     <div class="card-body">
                                         <form action="@Url.Action("Index","Acceso")" method="post">
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" name="correo" type="email" placeholder="correo@dominio.com" />
-                                                <label for="inputEmail">Email</label>
+                                                <input class="form-control" name="correo" id="txtcorreo" type="email" placeholder="correo@dominio.com" />
+                                                <label for="txtcorreo">Email</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" name="clave" type="password" placeholder="123Hgs" />
-                                                <label for="inputPassword">Contraseña</label>
+                                                <input class="form-control" name="clave" id="txtclave" type="password" placeholder="123" />
+                                                <label for="txtclave">Contraseña</label>
                                             </div>
+
+                                        @{
+                                            if (ViewBag.Error != null)
+                                            {
+                                             <div class="form-floating mb-3">
+                                                  <div class="alert alert-danger" role="alert">
+                                                        @ViewBag.Error
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                                
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                                 <a class="small" href="@Url.Action("Reestablecer","Acceso")">¿Has olvidado tu contraseña?</a>
                                                 <button class="btn btn-primary" type="submit">Ingresar</button>
