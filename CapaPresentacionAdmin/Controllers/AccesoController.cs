@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using CapaEntidad;
 using CapaNegocio;
 
-using Sytem.Web.Security;
+using System.Web.Security;
 
 namespace CapaPresentacionAdmin.Controllers
 {
@@ -89,7 +89,6 @@ namespace CapaPresentacionAdmin.Controllers
                 
             }
 
-            return View();
         }
 
        [HttpPost]
@@ -97,7 +96,7 @@ namespace CapaPresentacionAdmin.Controllers
        Usuario oUsuario = new Usuario();
        oUsuario = new CN_Usuarios().Listar().Where(item => item.Correo == correo).FirstOrDefault();
 
-       if(oUsario == null){
+       if(oUsuario == null){
        ViewBag.Error = "No se encontró un usuario relacionado a ese correo";
         return View();
        }
