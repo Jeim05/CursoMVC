@@ -32,6 +32,7 @@ namespace CapaPresentacionTienda.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult Registrar(Cliente objeto)
         {
             int resultado;
