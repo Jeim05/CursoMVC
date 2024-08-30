@@ -37,20 +37,20 @@
                                             </div>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            @Html.TextBoxFor(m => m.Nombres, new { @class = "form-control", @id = "txtcorreo", @placeholder = ".", value = ViewData["Correo"] })
+                                            @Html.TextBoxFor(m => m.Correo, new { @class = "form-control", @id = "txtcorreo", @placeholder = ".", value = ViewData["Correo"] })
                                             @Html.Label("txtcorreo", "Correo")
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    @Html.TextBoxFor(m => m.Clave, new { @class = "form-control", @id = "txtclave", @placeholder = "." })
-                                                    @Html.Password("txtclave", "Contraseña")
+                                                    @Html.PasswordFor(m => m.Clave, new { @class = "form-control", @id = "txtclave", @placeholder = "." })
+                                                    @Html.Label("txtclave", "Contraseña")
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    @Html.TextBoxFor(m => m.ConfirmarClave, new { @class = "form-control", @id = "txtconfirmarclave", @placeholder = "." })
-                                                    @Html.Password("txtconfirmarclave", "Confirmar Contraseña")
+                                                    @Html.PasswordFor(m => m.ConfirmarClave, new { @class = "form-control", @id = "txtconfirmarclave", @placeholder = "." })
+                                                    @Html.Label("txtconfirmarclave", "Confirmar Contraseña")
                                                 </div>
                                             </div>
                                         </div>

@@ -39,8 +39,8 @@ namespace CapaPresentacionTienda.Controllers
             string mensaje = string.Empty;
 
             ViewData["Nombres"] = string.IsNullOrEmpty(objeto.Nombres) ? "" : objeto.Nombres;
-            ViewData["Apellidos"] = string.IsNullOrEmpty(objeto.Nombres) ? "" : objeto.Apellidos;
-            ViewData["Correo"] = string.IsNullOrEmpty(objeto.Nombres) ? "" : objeto.Correo;
+            ViewData["Apellidos"] = string.IsNullOrEmpty(objeto.Apellidos) ? "" : objeto.Apellidos;
+            ViewData["Correo"] = string.IsNullOrEmpty(objeto.Correo) ? "" : objeto.Correo;
 
             if (objeto.Clave != objeto.ConfirmarClave)
             {

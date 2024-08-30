@@ -50,7 +50,7 @@ namespace CapaDatos
             {
                 using (SqlConnection oconexion = new SqlConnection(Conexion.conexion))
                 {
-                    string query = "select IdCliente, Nombres, Apellidos, Correo, Clave, Reestablecer, Activo from Cliente";
+                    string query = "select IdCliente, Nombres, Apellidos, Correo, Clave, Reestablecer FROM cliente";
                     SqlCommand cmd = new SqlCommand(query, oconexion);
                     cmd.CommandType = CommandType.Text; // Se da este instruccion ya que el query es un texto simple
                     oconexion.Open();
