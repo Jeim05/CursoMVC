@@ -109,9 +109,14 @@
 
 @section scripts{
     <script>
+
+        $(document).ready(function () {
+            MostrarCategorias();
+        })  
+        
         function MostrarCategorias() {
             jQuery.ajax({
-                url: "@Url.Action("ListarCategorias","Tienda")",
+                url: "@Url.Action("ListarCategorias", "Tienda")",
                 type: "GET",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
