@@ -205,10 +205,14 @@
                                     )
                                 ),
                                 $("<div>").addClass("card-footer p-4 pt-0 border-top-0 bg-transparent").append(
+                                    $("<div>").addClass("d-grid gap-2").append(
+                                 
                                     @if (Session["Cliente"] != null){
                                         @:$("<button>").addClass("btn btn-success mt-auto agregarcarrito").data("idproducto", element.IdProducto).text("Agregar al carrito"),
                                      }
                                     $("<a>").addClass("btn btn-dark mt-auto").attr({ "href": "@Url.Action("DetalleProducto","Tienda")" + "?idproducto=" + element.IdProducto }).text("Ver detalle")
+                                   )
+
                                 )
                             )
                         ).appendTo("#contenedor_producto")
