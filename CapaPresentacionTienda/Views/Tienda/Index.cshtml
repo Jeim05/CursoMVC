@@ -22,9 +22,7 @@
                             <div class="card-header bg-dark text-white">
                                 Categorías
                             </div>
-                            <div class="card-body" id="contenedor_categoria">
-                                
-                            </div>
+                            <div class="card-body" id="contenedor_categoria"></div>
                         </div>
                     </div>
                 </div>
@@ -34,7 +32,7 @@
                             <div class="card-header bg-dark text-white">
                                 Marcas
                             </div>
-                            <div class="card-body" id="contenedor_categoria"></div>
+                            <div class="card-body" id="contenedor_marca"></div>
                         </div>
                     </div>
                 </div>
@@ -103,7 +101,7 @@
             </div>
         </div>
 
-        
+
     </div>
 </section>
 
@@ -112,8 +110,8 @@
 
         $(document).ready(function () {
             MostrarCategorias();
-        })  
-        
+        })
+
         function MostrarCategorias() {
             jQuery.ajax({
                 url: "@Url.Action("ListarCategorias", "Tienda")",
@@ -121,12 +119,7 @@
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function (response) {
-                    //<div class="form-check">
-                    //    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                    //        <label class="form-check-label" for="flexRadioDefault1">
-                    //            Default radio
-                    //        </label>
-                    //</div>
+
                     $("#contenedor_categoria").LoadingOverlay("hide"); // Si ya se obtuvo el resultado oculta la previa
 
                     $("<div>").addClass("form-check").append(
@@ -139,15 +132,47 @@
                             $("<input>").addClass("form-check-input").attr({ "type": "radio", "name": "categoria", "value": element.IdCategoria, "id": "c" + i }),
                             $("<label>").addClass("form-check-label").text(element.Descripcion).attr({ "for": "c" + i })
                         ).appendTo("#contenedor_categoria")
-
                     })
+                    MostrarMarcas()
                 },
                 beforeSend: function () {
                     $("#contenedor_categoria").LoadingOverlay("show");
                 }
             })
         }
-        
 
-    </script> 
+        function MostrarMarcas() {
+            //Definimos como obtener la categoria
+            var _idcategoria = $("input[name=categoria]:checked").val()
+
+       jQuery.ajax({
+        url: "@Url.Action("ListarMarcaPorCategoria", "Tienda")",
+        type: "POST",
+        data: JSON.stringify({idcategoria: _idcategoria}),
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (response) {
+
+            $("#contenedor_marca").LoadingOverlay("hide"); // Si ya se obtuvo el resultado oculta la previa
+
+            $("<div>").addClass("form-check").append(
+                $("<input>").addClass("form-check-input").attr({ "type": "radio", "name": "marca", "value": "0", "id": "mx", "checked": "checked" }),
+                $("<label>").addClass("form-check-label").text("Todos").attr({ "for": "mx" })
+            ).appendTo("#contenedor_marca")
+
+            $.each(response.data, function (i, element) {
+                $("<div>").addClass("form-check").append(
+                    $("<input>").addClass("form-check-input").attr({ "type": "radio", "name": "marca", "value": element.IdMarca, "id": "m" + i }),
+                    $("<label>").addClass("form-check-label").text(element.Descripcion).attr({ "for": "m" + i })
+                ).appendTo("#contenedor_marca")
+
+            })
+        },
+        beforeSend: function () {
+            $("#contenedor_marca").LoadingOverlay("show");
+        }
+    })
+}
+
+    </script>
 }
