@@ -127,15 +127,27 @@
                     //            Default radio
                     //        </label>
                     //</div>
+                    $("#contenedor_categoria").LoadingOverlay("hide"); // Si ya se obtuvo el resultado oculta la previa
 
                     $("<div>").addClass("form-check").append(
                         $("<input>").addClass("form-check-input").attr({ "type": "radio", "name": "categoria", "value": "0", "id": "cx", "checked": "checked" }),
-                        $("<label>").addClass("form-check-label").text("Todos").attr({"for":"cx"})
+                        $("<label>").addClass("form-check-label").text("Todos").attr({ "for": "cx" })
                     ).appendTo("#contenedor_categoria")
 
+                    $.each(response.data, function (i, element) {
+                        $("<div>").addClass("form-check").append(
+                            $("<input>").addClass("form-check-input").attr({ "type": "radio", "name": "categoria", "value": element.IdCategoria, "id": "c" + i }),
+                            $("<label>").addClass("form-check-label").text(element.Descripcion).attr({ "for": "c" + i })
+                        ).appendTo("#contenedor_categoria")
+
+                    })
+                },
+                beforeSend: function () {
+                    $("#contenedor_categoria").LoadingOverlay("show");
                 }
             })
         }
+        
 
     </script> 
 }
