@@ -141,38 +141,83 @@
             })
         }
 
+        // FUNCION PARA MOSTRAR LAS MARCAS
         function MostrarMarcas() {
             //Definimos como obtener la categoria
             var _idcategoria = $("input[name=categoria]:checked").val()
 
-       jQuery.ajax({
-        url: "@Url.Action("ListarMarcaPorCategoria", "Tienda")",
-        type: "POST",
-        data: JSON.stringify({idcategoria: _idcategoria}),
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (response) {
+            jQuery.ajax({
+                url: "@Url.Action("ListarMarcaPorCategoria", "Tienda")",
+                type: "POST",
+                data: JSON.stringify({ idcategoria: _idcategoria }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    $("#contenedor_marca").html("")
+                    $("#contenedor_marca").LoadingOverlay("hide"); // Si ya se obtuvo el resultado oculta la previa
 
-            $("#contenedor_marca").LoadingOverlay("hide"); // Si ya se obtuvo el resultado oculta la previa
+                    $("<div>").addClass("form-check").append(
+                        $("<input>").addClass("form-check-input").attr({ "type": "radio", "name": "marca", "value": "0", "id": "mx", "checked": "checked" }),
+                        $("<label>").addClass("form-check-label").text("Todos").attr({ "for": "mx" })
+                    ).appendTo("#contenedor_marca")
 
-            $("<div>").addClass("form-check").append(
-                $("<input>").addClass("form-check-input").attr({ "type": "radio", "name": "marca", "value": "0", "id": "mx", "checked": "checked" }),
-                $("<label>").addClass("form-check-label").text("Todos").attr({ "for": "mx" })
-            ).appendTo("#contenedor_marca")
+                    $.each(response.data, function (i, element) {
+                        $("<div>").addClass("form-check").append(
+                            $("<input>").addClass("form-check-input").attr({ "type": "radio", "name": "marca", "value": element.IdMarca, "id": "m" + i }),
+                            $("<label>").addClass("form-check-label").text(element.Descripcion).attr({ "for": "m" + i })
+                        ).appendTo("#contenedor_marca")
 
-            $.each(response.data, function (i, element) {
-                $("<div>").addClass("form-check").append(
-                    $("<input>").addClass("form-check-input").attr({ "type": "radio", "name": "marca", "value": element.IdMarca, "id": "m" + i }),
-                    $("<label>").addClass("form-check-label").text(element.Descripcion).attr({ "for": "m" + i })
-                ).appendTo("#contenedor_marca")
-
+                    })
+                },
+                beforeSend: function () {
+                    $("#contenedor_marca").LoadingOverlay("show");
+                }
             })
-        },
-        beforeSend: function () {
-            $("#contenedor_marca").LoadingOverlay("show");
         }
-    })
-}
+
+        $(document).on("change", "input[name=categoria]", function () {
+            MostrarMarcas()
+        })
+
+
+        // FUNCION PARA MOSTRAR LOS PRODUCTOS
+        function MostrarProductos(_idcategoria, _idmarca) {
+            jQuery.ajax({
+                url: "@Url.Action("ListarProductos", "Tienda")",
+                type: "POST",
+                data: JSON.stringify({ idcategoria: _idcategoria, idmarca: _idmarca }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    $("#contenedor_producto").html("")
+                    $("#contenedor_producto").LoadingOverlay("hide"); // Si ya se obtuvo el resultado oculta la previa
+
+                    $.each(response.data, function (i, element) {
+
+                        $("<div>").addClass("col mb-5").append(
+                            $("<div>").addClass("card h-100").append(
+                                $("<img>").addClass("card-img-top").attr({ "src": "data:image/" + ele }.Extension + ";base64" + element.Base64),
+                                $("<div>").addClass("card-body p-4").append(
+                                    $("<div>").addClass("text-center").append(
+                                        $("<h5>").addClass("fw-bolder").text(element.Nombre),
+                                        "$" + element.Precio.toFixed(2) + USD
+                                    )
+                                ),
+                                $("<div>").addClass("card-footer p-4 pt-0 border-top-0 bg-transparent").append(
+                                    @if (Session["Cliente"] != null){
+                                        @:$("<button>").addClass("btn btn-success mt-auto agregarcarrito").data("idproducto", element.IdProducto).text("Agregar al carrito"),
+                                     }
+                                    $("<a>").addClass("btn btn-dark mt-auto").attr({ "href": "@Url.Action("DetalleProducto","Tienda")" + "?idproducto=" + element.IdProducto }).text("Ver detalle")
+                                )
+                            )
+                        ).appendTo("#contenedor_producto")
+                    })
+                },
+                beforeSend: function () {
+                    $("#contenedor_marca").LoadingOverlay("show");
+                }
+            })
+    }
 
     </script>
 }
