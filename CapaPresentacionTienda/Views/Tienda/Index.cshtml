@@ -110,6 +110,7 @@
 
         $(document).ready(function () {
             MostrarCategorias();
+            MostrarProductos(0, 0)
         })
 
         function MostrarCategorias() {
@@ -218,6 +219,12 @@
                 }
             })
     }
+
+     $("#btnaplicarfiltro").click(function(){
+       var _idcategoria = $("input[name=categoria]:checked").val()
+       var _idmarca = $("input[name=marca]:marca").val()
+      MostrarProductos(_idcategoria, _idmarca)
+     })
 
     </script>
 }
