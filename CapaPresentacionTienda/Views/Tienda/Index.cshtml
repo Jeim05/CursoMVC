@@ -23,7 +23,7 @@
                                 Categorías
                             </div>
                             <div class="card-body" id="contenedor_categoria">
-
+                                
                             </div>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="col-sm-9">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div id="contenedor_producto" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
@@ -107,3 +107,30 @@
     </div>
 </section>
 
+@section scripts{
+    <script>
+        function MostrarCategorias() {
+            jQuery.ajax({
+                url: "@Url.Action("ListarCategorias","Tienda")",
+                type: "GET",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    //<div class="form-check">
+                    //    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                    //        <label class="form-check-label" for="flexRadioDefault1">
+                    //            Default radio
+                    //        </label>
+                    //</div>
+
+                    $("<div>").addClass("form-check").append(
+                        $("<input>").addClass("form-check-input").attr({ "type": "radio", "name": "categoria", "value": "0", "id": "cx", "checked": "checked" }),
+                        $("<label>").addClass("form-check-label").text("Todos").attr({"for":"cx"})
+                    ).appendTo("#contenedor_categoria")
+
+                }
+            })
+        }
+
+    </script> 
+}
