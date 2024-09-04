@@ -19,20 +19,53 @@ namespace CapaDatos
             {
                 using (SqlConnection conexion = new SqlConnection(Conexion.conexion))
                 {
-                    SqlCommand cmd = new SqlCommand("sp_ExisteCarrito", conexion); 
+                    SqlCommand cmd = new SqlCommand("sp_ExisteCarrito", conexion);
                     cmd.Parameters.AddWithValue("IdCliente", idcliente);
                     cmd.Parameters.AddWithValue("IdProducto", idproducto);
-                    cmd.Parameters.Add("Resultado", SqlDbType.Int).Direction = ParameterDirection.Output; 
-                    cmd.CommandType = CommandType.StoredProcedure; 
+                    cmd.Parameters.Add("Resultado", SqlDbType.Int).Direction = ParameterDirection.Output;
+                    cmd.CommandType = CommandType.StoredProcedure;
 
                     conexion.Open();
                     cmd.ExecuteNonQuery();
-                    resultado = Convert.ToBoolean(cmd.Parameters["Resultado"].Value); 
+                    resultado = Convert.ToBoolean(cmd.Parameters["Resultado"].Value);
                 }
             }
             catch (Exception ex)
             {
                 resultado = false;
+            }
+            return resultado;
+        }
+
+
+        public bool OperacionCarrito(int idcliente, int idproducto, bool suma, out string Mensaje)
+        {
+            bool resultado = true;
+            Mensaje = string.Empty;
+
+            try
+            {
+                using (SqlConnection conexion = new SqlConnection(Conexion.conexion))
+                {
+                    SqlCommand cmd = new SqlCommand("sp_OperacionCarrito", conexion);
+                    cmd.Parameters.AddWithValue("IdCliente", idcliente);
+                    cmd.Parameters.AddWithValue("IdProducto", idproducto);
+                    cmd.Parameters.AddWithValue("Sumar", suma);
+                    cmd.Parameters.Add("Resultado", SqlDbType.Int).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add("Mensaje", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    conexion.Open();
+                    cmd.ExecuteNonQuery();
+
+                    resultado = Convert.ToBoolean(cmd.Parameters["Resultado"].Value);
+                    Mensaje = cmd.Parameters["Mensaje"].Value.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                resultado = false;
+                Mensaje = ex.Message;
             }
             return resultado;
         }
