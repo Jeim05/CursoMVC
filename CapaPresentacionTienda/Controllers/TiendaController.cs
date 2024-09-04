@@ -24,7 +24,7 @@ namespace CapaPresentacionTienda.Controllers
            Producto oProducto = new Producto();
            bool conversion;
 
-           oProducto = CN_Producto().Listar().Where(p => p.IdProducto == idproducto).FirstOrDefault();
+           oProducto = new CN_Producto().Listar().Where(p => p.IdProducto == idproducto).FirstOrDefault();
 
            if(oProducto != null){
               oProducto.Base64 = CN_Recursos.ConvertirBase64(Path.Combine(oProducto.RutaImagen, oProducto.NombreImagen), out conversion);
