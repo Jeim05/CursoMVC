@@ -69,5 +69,29 @@ namespace CapaDatos
             }
             return resultado;
         }
+
+        //  SELECT COUNT(*) FROM CARRITO WHERE IdCliente = 1
+
+        public int CantidadEnCarrito(int idcliente)
+        {
+            int resultado = 0;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(Conexion.conexion))
+                {
+                    SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM CARRITO WHERE IdCliente = @idcliente", connection);
+                    cmd.Parameters.AddWithValue("@idcliente", idcliente);
+                    cmd.CommandType = CommandType.Text;
+                    connection.Open();
+                    resultado = Convert.ToInt32( cmd.ExecuteScalar()); 
+                }
+            }
+            catch (Exception ex)
+            {
+
+                resultado = false;
+            }
+            return resultado;
+        }
     }
 }
