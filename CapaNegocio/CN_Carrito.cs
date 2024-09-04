@@ -13,6 +13,17 @@ namespace CapaNegocio
     {
         private CD_Carrito objCapaDato = new CD_Carrito();
 
+        public bool ExisteCarrito(int idcliente, int idproducto){
+            return objCapaDato.ExisteCarrito(idcliente, idproducto);
+        }
+
+         public bool OperacionCarrito(int idcliente, int idproducto, bool suma, out string Mensaje){
+             return objCapaDato.OperacionCarrito(idcliente, idproducto, suma, out Mensaje);
+         }
+
+         public int CantidadEnCarrito(int idcliente){
+              return objCapaDato.CantidadEnCarrito(idcliente);
+         }
 
     }
 }
