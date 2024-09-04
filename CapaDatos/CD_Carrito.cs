@@ -70,8 +70,6 @@ namespace CapaDatos
             return resultado;
         }
 
-        //  SELECT COUNT(*) FROM CARRITO WHERE IdCliente = 1
-
         public int CantidadEnCarrito(int idcliente)
         {
             int resultado = 0;
@@ -89,7 +87,7 @@ namespace CapaDatos
             catch (Exception ex)
             {
 
-                resultado = false;
+                resultado = 0;
             }
             return resultado;
         }
