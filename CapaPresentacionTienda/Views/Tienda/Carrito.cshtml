@@ -60,6 +60,9 @@
 
 @section scripts{
 <script>
+ $(document).ready(function(){
+    ListarProvincia()
+   }) 
 
     function ListarProvincia(){
          jQuery.ajax({
@@ -69,7 +72,11 @@
             contentType: "application/json; charset-utf-8",
             success: function(data){
                 if (data.lista != null) {
-                    
+                      if (data.lista != null) {
+                    $.each(data.lista, function(i, item){
+                        $("<option>").attr({"value":iem.IdProvincia}).text(item.descripcion).appendTo("#cboprovincia")
+                    })
+                }
                 }
             }
          })
