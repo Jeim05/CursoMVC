@@ -159,6 +159,31 @@ namespace CapaPresentacionTienda.Controllers
             return Json(new {respuesta = respuesta,mensaje = mensaje}, JsonRequestBehavior.AllowGet);   
         }
 
+
+        [HttpPost]
+        public JsonResult ObtenerProvincia(){
+         List<Provincia> oLista = new List<Provincia>();
+         oLista = CN_Ubicacion().ObtenerProvincia();
+
+         return Json(new {lista = oLista}, JsonRequestBehavior.AllowGet);   
+        }
+
+        [HttpPost]
+        public JsonResult ObtenerCanton(string IdProvincia){
+         List<Canton> oLista = new List<Canton>();
+         oLista = CN_Ubicacion().ObtenerCanton(IdProvincia);
+
+         return Json(new {lista = oLista}, JsonRequestBehavior.AllowGet);   
+        }
+
+        [HttpPost]
+        public JsonResult ObtenerDistrito(string IdProvincia, string IdCanton){
+         List<Distrito> oLista = new List<Distrito>();
+         oLista = CN_Ubicacion().ObtenerCanton(IdProvincia,IdCanton);
+
+         return Json(new {lista = oLista}, JsonRequestBehavior.AllowGet);   
+        }
+
         public ActionResult Carrito()
         {
 
