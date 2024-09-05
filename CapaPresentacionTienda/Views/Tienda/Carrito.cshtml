@@ -65,6 +65,7 @@
    }) 
 
     function ListarProvincia(){
+             $("<option>").attr({"value":item.IdProvincia}).text(item.descripcion).appendTo("#cboprovincia") // CORREGIR
          jQuery.ajax({
             url: '@Url.Action("ObtenerProvincia","Tienda")',
             type: "POST",
@@ -74,7 +75,7 @@
                 if (data.lista != null) {
                       if (data.lista != null) {
                     $.each(data.lista, function(i, item){
-                        $("<option>").attr({"value":iem.IdProvincia}).text(item.descripcion).appendTo("#cboprovincia")
+                        $("<option>").attr({"value":item.IdProvincia}).text(item.descripcion).appendTo("#cboprovincia")
                     })
                 }
                 }
