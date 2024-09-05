@@ -6,7 +6,20 @@ using System.Threading.Tasks;
 
 namespace CapaEntidad
 {
-    internal class CN_Ubicacion
+    public class CN_Ubicacion
     {
+        private CD_Ubicacion objCapaDatos = new CD_Ubicacion();
+
+        public List<Provincia> ObtenerProvincia(){
+            return objCapaDatos.ObtenerProvincia();
+        }
+
+        public List<Canton> ObtenerCanton(string idprovincia){
+              return objCapaDatos.ObtenerCanton(idprovincia);
+        }
+
+        public List<Distrito> ObtenerDistrito(string idprovincia, string idcanton){
+            return objCapaDatos.ObtenerDistrito(idprovincia, idcanton);
+        }
     }
 }
