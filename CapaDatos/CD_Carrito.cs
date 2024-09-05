@@ -91,5 +91,54 @@ namespace CapaDatos
             }
             return resultado;
         }
+
+        public List<Carrito> ListarProducto(int idcliente)
+        {
+            List<Carrito> lista = new List<Carrito>();
+
+            try
+            {
+                using (SqlConnection oconexion = new SqlConnection(Conexion.conexion))
+                {
+                    string query = "select * from fn_obtenerCarritoCliente(@idcliente)";
+
+
+                    SqlCommand cmd = new SqlCommand(query, oconexion);
+                    cmd.Parameters.AddWithValue("@idcliente", idcliente):
+                    cmd.CommandType = CommandType.Text; 
+                    oconexion.Open();
+
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            lista.Add(
+                                new Carrito
+                                {
+                                    IdProducto = Convert.ToInt32(reader["IdProducto"]),
+                                    Nombre = reader["Nombre"].ToString(),
+                                    Descripcion = reader["Descripcion"].ToString(),
+                                    oMarca = new Marca() { IdMarca = Convert.ToInt32(reader["IdMarca"]), Descripcion = reader["DesMarca"].ToString() },
+                                    oCategoria = new Categoria() { IdCategoria = Convert.ToInt32(reader["IdCategoria"]), Descripcion = reader["DesCategoria"].ToString() },
+                                    Precio = Convert.ToDecimal(reader["Precio"]),
+                                    Stock = Convert.ToInt32(reader["Stock"]),
+                                    RutaImagen = reader["RutaImagen"].ToString(),
+                                    NombreImagen = reader["NombreImagen"].ToString(),
+                                    Activo = Convert.ToBoolean(reader["Activo"]),
+                                });
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                lista = new List<Producto>();
+            }
+
+            return lista;
+        }
+
+
     }
 }

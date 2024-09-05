@@ -222,13 +222,47 @@
                 }
             })
         }
-    
+
 
         $("#btnaplicarfiltro").click(function () {
             var _idcategoria = $("input[name=categoria]:checked").val();
             var _idmarca = $("input[name=marca]:checked").val();
             MostrarProductos(_idcategoria, _idmarca)
         })
+
+        $(document).on("click", "button.agregarcarrito", function () {
+            console.log($(this).data("idproducto"));
+
+            jQuery.ajax({
+                url: '@Url.Action("AgregarCarrito", "Tienda")',
+                type: "POST",
+                data: JSON.stringify({idproducto:$(this).data("idproducto")}),
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    if (data.respuesta) {
+                        MostrarCantidadCarrito(); // Dado a que el layout es una master page, podemos referenciar el método
+
+                        swal({
+                            title: "Agregado al carrito",
+                            text: "¿Desea ir al carrito?",
+                            type: "success",
+                            showCancelButton: true,
+                            confirmButtonClass: "btn-primary",
+                            confirmButtonText: "Si",
+                            cancelButtonText: "No",
+                            closeOnConfirm: true,
+                          }, function () {
+                              window.location.href = '@Url.Action("Carrito","Tienda")'
+                         })
+                    } else {
+                        swal("", data.mensaje, "warning");
+                    }
+
+                }
+            })
+        })
+
 
     </script>
 }

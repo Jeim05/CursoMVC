@@ -21,7 +21,6 @@ namespace CapaNegocio
         {
             Mensaje = string.Empty;
 
-
             if (string.IsNullOrEmpty(obj.Nombre) || string.IsNullOrWhiteSpace(obj.Nombre))
             {
                 Mensaje = "El nombre del Producto no puede ser vacio";
