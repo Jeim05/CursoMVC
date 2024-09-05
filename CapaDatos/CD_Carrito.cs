@@ -125,7 +125,8 @@ namespace CapaDatos
                                         RutaImagen = reader["RutaImagen"].ToString(),
                                         NombreImagen = reader["NombreImagen"].ToString(),
                                         oMarca = new Marca() { Descripcion= reader["DesMarca"].ToString() }
-                                    }  
+                                    }, 
+                                    Cantidad = Convert.ToInt32(reader["Cantidad"])
                                 });
                         }
                     }
