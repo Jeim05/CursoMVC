@@ -4,5 +4,57 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Carrito</h2>
+<div class="container my-5">
+  <div class="row">
+     <div class="col-sm-12">
+        <div class="card">
+           <div class="card-body">
+              <div class="row">
+                   <!-- Detalle Producto -->
+                 <div class="col-sm-9">
+                <div class="card">
+                    <div class="card-body bg-light">
+                     <h5 class="card-title">Detalle Envio</h5>
+                               <form>
+                                <div class="mb-2">
+                                    <label for="cboprovincia" class="form-label">Provincia:</label>
+                                    <select  class="form-select form-select-sm" id="cboprovincia"></select>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="cbocanton" class="form-label">Canton:</label>
+                                    <select  class="form-select form-select-sm" id="cbocanton"></select>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="cbodistrito" class="form-label">Canton:</label>
+                                    <select  class="form-select form-select-sm" id="cbodistrit"></select>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="txtnombrecontacto" class="form-label">Nombre Contacto:</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtnombrecontacto">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="txtdireccion" class="form-label">Dirección:</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtdireccion">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="txttelefono" class="form-label">Teléfono:</label>
+                                    <input type="text" class="form-control form-control-sm" id="txttelefono">
+                                </div>
+                                 <div class="d-grid">
+                                   <button class="btn btn-success" type="button" onclick="RealizarPago()">
+                                    <i class="fab fa-paypal"></i> Terminar y procesar pago
+                                   </button>
+                                </div>
+                            </form>
+                    </div>
+                </div>
+                </div>
+                   <!-- Detalle Envio -->
+                 <div class="col-sm-3"></div>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
 
