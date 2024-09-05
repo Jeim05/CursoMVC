@@ -58,3 +58,23 @@
   </div>
 </div>
 
+@section scripts{
+<script>
+
+    function ListarProvincia(){
+         jQuery.ajax({
+            url: '@Url.Action("ObtenerProvincia","Tienda")',
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json; charset-utf-8",
+            success: function(data){
+                if (data.lista != null) {
+                    
+                }
+            }
+         })
+    }
+
+</script>
+}
+
