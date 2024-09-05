@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 using CapaEntidad;
+using System.Globalization;
 
 namespace CapaDatos
 {
@@ -104,7 +105,7 @@ namespace CapaDatos
 
 
                     SqlCommand cmd = new SqlCommand(query, oconexion);
-                    cmd.Parameters.AddWithValue("@idcliente", idcliente):
+                    cmd.Parameters.AddWithValue("@idcliente", idcliente);
                     cmd.CommandType = CommandType.Text; 
                     oconexion.Open();
 
@@ -116,16 +117,15 @@ namespace CapaDatos
                             lista.Add(
                                 new Carrito
                                 {
-                                    IdProducto = Convert.ToInt32(reader["IdProducto"]),
-                                    Nombre = reader["Nombre"].ToString(),
-                                    Descripcion = reader["Descripcion"].ToString(),
-                                    oMarca = new Marca() { IdMarca = Convert.ToInt32(reader["IdMarca"]), Descripcion = reader["DesMarca"].ToString() },
-                                    oCategoria = new Categoria() { IdCategoria = Convert.ToInt32(reader["IdCategoria"]), Descripcion = reader["DesCategoria"].ToString() },
-                                    Precio = Convert.ToDecimal(reader["Precio"]),
-                                    Stock = Convert.ToInt32(reader["Stock"]),
-                                    RutaImagen = reader["RutaImagen"].ToString(),
-                                    NombreImagen = reader["NombreImagen"].ToString(),
-                                    Activo = Convert.ToBoolean(reader["Activo"]),
+                                    oProducto = new Producto ()
+                                    {
+                                        IdProducto = Convert.ToInt32(reader["IdProducto"]),
+                                        Nombre = reader["Nombre"].ToString(),    
+                                        Precio = Convert.ToDecimal(reader["Precio"], new CultureInfo("es-CR")),
+                                        RutaImagen = reader["RutaImagen"].ToString(),
+                                        NombreImagen = reader["NombreImagen"].ToString(),
+                                        oMarca = new Marca() { Descripcion= reader["DesMarca"].ToString() }
+                                    }  
                                 });
                         }
                     }
@@ -133,11 +133,38 @@ namespace CapaDatos
             }
             catch
             {
-                lista = new List<Producto>();
+                lista = new List<Carrito>();
             }
 
             return lista;
         }
+
+
+        public bool EliminarCarrito(int idcliente, int idproducto)
+        {
+            bool resultado = true;
+            try
+            {
+                using (SqlConnection conexion = new SqlConnection(Conexion.conexion))
+                {
+                    SqlCommand cmd = new SqlCommand("sp_EliminarCarrito", conexion);
+                    cmd.Parameters.AddWithValue("IdCliente", idcliente);
+                    cmd.Parameters.AddWithValue("IdProducto", idproducto);
+                    cmd.Parameters.Add("Resultado", SqlDbType.Int).Direction = ParameterDirection.Output;
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    conexion.Open();
+                    cmd.ExecuteNonQuery();
+                    resultado = Convert.ToBoolean(cmd.Parameters["Resultado"].Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                resultado = false;
+            }
+            return resultado;
+        }
+
 
 
     }
