@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 using CapaEntidad;
-using System.Data.SqlCliente;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace CapaDatos
 {
@@ -95,7 +95,7 @@ namespace CapaDatos
                     string query = "select * from DISTRITO where IdProvincia = @IdProvincia and IdCanton = @IdCanton";
                     SqlCommand cmd = new SqlCommand(query, oconexion);
                     cmd.Parameters.AddWithValue(" @IdProvincia", idprovincia);
-                    cmd.Parameters.AddWithValue(" @IdCanton", idcanton)
+                    cmd.Parameters.AddWithValue(" @IdCanton", idcanton);
                     cmd.CommandType = CommandType.Text; // Se da este instruccion ya que el query es un texto simple
                     oconexion.Open();
                     
