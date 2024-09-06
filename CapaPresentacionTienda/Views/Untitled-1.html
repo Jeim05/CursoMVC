@@ -19,7 +19,8 @@
                                 <div class="me-2">
                                     <div class="d-flex justify-content-between">
                                         <h5 class="ms-2 mt-2">Detalle carrito</h5>
-                                        <a class="btn btn-primary" href="@Url.Action("Index","Tienda")"><i class="fas fa-cart-plus"></i> Seguir Comprando</a>
+                                        <a class="btn btn-primary" href="@Url.Action(" Index","Tienda")"><i
+                                                class="fas fa-cart-plus"></i> Seguir Comprando</a>
                                     </div>
                                     <hr class="mt-2 mb-2">
                                     <div id="productos-carrito">
@@ -27,7 +28,8 @@
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-sm-2 align-self-center d-flex justify-content-center">
-                                                        <img class="rounded" src="" alt="" style="width: 100px; height: 100px;">
+                                                        <img class="rounded" src="" alt=""
+                                                            style="width: 100px; height: 100px;">
                                                     </div>
                                                     <div class="col-sm-4 align-self-center">
                                                         <span class="font-wight-bold d-block">Marca</span>
@@ -38,71 +40,73 @@
                                                     </div>
                                                     <div class="col-sm-2 align-self-center">
                                                         <div class="d-fled">
-                                                            <button class="btn btn-outline-secondary btn-restar rounded-0">
+                                                            <button
+                                                                class="btn btn-outline-secondary btn-restar rounded-0">
                                                                 <i class="fas fa-minus"></i>
                                                             </button>
-                                                            <input class="form-control input-cantidad p-1 text-center rounded-0"disabled style="width: 40px;">
-                                                            <button class="btn btn-outline-secondary btn-sumar rounded-0"></button>
-                                                                <i class="fas fa-plus"></i>
+                                                            <input
+                                                                class="form-control input-cantidad p-1 text-center rounded-0"
+                                                                disabled style="width: 40px;">
+                                                            <button
+                                                                class="btn btn-outline-secondary btn-sumar rounded-0"></button>
+                                                            <i class="fas fa-plus"></i>
                                                             </button>
                                                         </div>
                                                     </div>
-                                                    </div>
-                                                    <div class="col-sm-2 align-self-center">
-                                                        <button class="btn btn-outline-danger btn-eliminar"><i class="far fa-trash-alt"></i> Eliminar</button>
-                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2 align-self-center">
+                                                    <button class="btn btn-outline-danger btn-eliminar"><i
+                                                            class="far fa-trash-alt"></i> Eliminar</button>
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
-                            <!-- Detalle Envio -->
-                            <div class="col-sm-3">
-                                <div class="card">
-                                    <div class="card-body bg-light">
-                                        <h5 class="card-title">Detalle Envio</h5>
-                                        <form>
-                                            <div class="mb-2">
-                                                <label for="cboprovincia" class="form-label">Provincia:</label>
-                                                <select class="form-select form-select-sm" id="cboprovincia"></select>
-                                            </div>
-                                            <div class="mb-2">
-                                                <label for="cbocanton" class="form-label">Canton:</label>
-                                                <select class="form-select form-select-sm" id="cbocanton"></select>
-                                            </div>
-                                            <div class="mb-2">
-                                                <label for="cbodistrito" class="form-label">Canton:</label>
-                                                <select class="form-select form-select-sm" id="cbodistrit"></select>
-                                            </div>
-                                            <div class="mb-2">
-                                                <label for="txtnombrecontacto" class="form-label">Nombre
-                                                    Contacto:</label>
-                                                <input type="text" class="form-control form-control-sm"
-                                                    id="txtnombrecontacto">
-                                            </div>
-                                            <div class="mb-2">
-                                                <label for="txtdireccion" class="form-label">Dirección:</label>
-                                                <input type="text" class="form-control form-control-sm"
-                                                    id="txtdireccion">
-                                            </div>
-                                            <div class="mb-2">
-                                                <label for="txttelefono" class="form-label">Teléfono:</label>
-                                                <input type="text" class="form-control form-control-sm"
-                                                    id="txttelefono">
-                                            </div>
-                                            <div class="mb-2">
-                                                <label for="txtdireccion" class="form-label">Dirección:</label>
-                                                <input type="text" class="form-control form-control-sm"
-                                                    id="txtdireccion">
-                                            </div>
-                                            <div class="d-grid">
-                                                <button class="btn btn-success" type="button" onclick="RealizarPago()">
-                                                    <i class="fab fa-paypal"></i> Terminar y procesar pago
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
+                        </div>
+                        <!-- Detalle Envio -->
+                        <div class="col-sm-3">
+                            <div class="card">
+                                <div class="card-body bg-light">
+                                    <h5 class="card-title">Detalle Envio</h5>
+                                    <form>
+                                        <div class="mb-2">
+                                            <label for="cboprovincia" class="form-label">Provincia:</label>
+                                            <select class="form-select form-select-sm" id="cboprovincia"></select>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="cbocanton" class="form-label">Canton:</label>
+                                            <select class="form-select form-select-sm" id="cbocanton"></select>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="cbodistrito" class="form-label">Canton:</label>
+                                            <select class="form-select form-select-sm" id="cbodistrit"></select>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="txtnombrecontacto" class="form-label">Nombre
+                                                Contacto:</label>
+                                            <input type="text" class="form-control form-control-sm"
+                                                id="txtnombrecontacto">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="txtdireccion" class="form-label">Dirección:</label>
+                                            <input type="text" class="form-control form-control-sm" id="txtdireccion">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="txttelefono" class="form-label">Teléfono:</label>
+                                            <input type="text" class="form-control form-control-sm" id="txttelefono">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="txtdireccion" class="form-label">Dirección:</label>
+                                            <input type="text" class="form-control form-control-sm" id="txtdireccion">
+                                        </div>
+                                        <div class="d-grid">
+                                            <button class="btn btn-success" type="button" onclick="RealizarPago()">
+                                                <i class="fab fa-paypal"></i> Terminar y procesar pago
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -110,87 +114,174 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <script>
+    <script>
 
-            $(document).ready(function () {
-                ListarProvincia()
+        $(document).ready(function () {
+            jQuery.ajax({
+                url: '@Url.Action("ListarProductosCarrito","Tineda")',
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset-utf-8",
+                success: function (response) {
+                    $("#productos-carrito").html("");
+                    $("#productos-carrito").LoadingOverlay("hide");
+
+                    $.each(response.data, function (i, item) {
+
+                        /*
+                          <div class="card mb-2 card-producto">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    
+                                                    <div class="col-sm-2 align-self-center">
+                                                        <div class="d-flex">
+                                                            <button
+                                                                class="btn btn-outline-secondary btn-restar rounded-0">
+                                                                <i class="fas fa-minus"></i>
+                                                            </button>
+                                                            <input
+                                                                class="form-control input-cantidad p-1 text-center rounded-0"
+                                                                disabled style="width: 40px;">
+                                                            <button
+                                                                class="btn btn-outline-secondary btn-sumar rounded-0"></button>
+                                                            <i class="fas fa-plus"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2 align-self-center">
+                                                    <button class="btn btn-outline-danger btn-eliminar"><i
+                                                            class="far fa-trash-alt"></i> Eliminar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                         */
+                        $("<div>").addClass("card mb-2 card-producto").append(
+                            $("<div>").addClass("card-body").append(
+                                $("<div>").addClass("row").append(
+                                    // 1
+                                    $("<div>").addClass("col-sm-2 align-self-center d-flex justify-content-center").append(
+                                        $("<img>").addClass("rounded").attr({"src": "data:image/"+item.oProducto.Extension + ";base64" + item.oProducto.Base64}).
+                                        css({"width":"100px", "height":"100px"})
+                                    ), 
+                                    // 2.
+                                    $("<div>").addClass("col-sm-4 align-self-center").append(
+                                        $("<span>").addClass("font-wight-bold d-block").text(item.oProducto.oMarca.Descripcion),
+                                        $("<span>").text(item.oProducto.Nombre)
+                                    ),
+                                    //3
+                                    $("<div>").addClass("col-sm-2 align-self-center").append(
+                                        $("<span>").text(item.oProducto.Precio.toFixed(2)+"USD")
+                                       
+                                    ),
+                                    //4
+                                    $("<div>").addClass("col-sm-2 align-self-center").append(
+                                        $("<div>").addClass("d-flex").append(
+                                            $("<button>").addClass("btn btn-outline-secondary btn-restar rounded-0").append(
+                                                $("<i>").addClass("fas fa-minus")
+                                            ),
+                                            $("<input>").addClass("form-control input-cantidad p-1 text-center rounded-0").attr({"disabled":"disabled"}).css({"width":"40px"}).data("oProducto", item.oProducto).val(item.Cantidad),
+                                            $("<button>").addClass("btn btn-outline-secondary btn-restar rounded-0").append(
+                                                $("<i>").addClass("fas fa-plus")
+                                            )
+                                        )
+                                    ),
+                                    //5
+                                    $("<div>").addClass("col-sm-2 align-self-center").append(
+                                        $("<button>").addClass("btn btn-outline-danger btn-eliminar").append(
+                                                $("<i>").addClass("far fa-trash-alt"), "Eliminar"
+                                            )
+                                    )
+
+                                )  
+                            )
+                        ).appendTo("#productos-carrito")
+
+                    })
+                }
             })
 
-            function ListarProvincia() {
 
-                $("<option>").attr({ "value": "00", "disabled": "disabled", "selected": "true" }).text("Seleccionar").appendTo("#cboprovincia")
 
-                jQuery.ajax({
-                    url: '@Url.Action("ObtenerProvincia","Tienda")',
-                    type: "POST",
-                    dataType: "json",
-                    contentType: "application/json; charset-utf-8",
-                    success: function (data) {
-                        if (data.lista != null) {
-                            $.each(data.lista, function (i, item) {
-                                $("<option>").attr({ "value": item.IdProvincia }).text(item.Descripcion).appendTo("#cboprovincia")
-                            })
-                            ListarProvincia();
-                        }
+            ListarProvincia()
+        })
+
+        function ListarProvincia() {
+
+            $("<option>").attr({ "value": "00", "disabled": "disabled", "selected": "true" }).text("Seleccionar").appendTo("#cboprovincia")
+
+            jQuery.ajax({
+                url: '@Url.Action("ObtenerProvincia","Tienda")',
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset-utf-8",
+                success: function (data) {
+                    if (data.lista != null) {
+                        $.each(data.lista, function (i, item) {
+                            $("<option>").attr({ "value": item.IdProvincia }).text(item.Descripcion).appendTo("#cboprovincia")
+                        })
+                        ListarProvincia();
                     }
-                })
-            }
-
-            $("#cboprovincia").on("change", function () {
-                ListarCanton();
+                }
             })
+        }
 
-            function ListarCanton() {
-                $("#cbocanton").html("");
+        $("#cboprovincia").on("change", function () {
+            ListarCanton();
+        })
 
-                $("<option>").attr({ "value": "00", "disabled": "disabled", "selected": "true" }).text("Seleccionar").appendTo("#cbocanton")
+        function ListarCanton() {
+            $("#cbocanton").html("");
 
-                jQuery.ajax({
-                    url: '@Url.Action("ObtenerCanton","Tienda")',
-                    type: "POST",
-                    data: JSON.stringify({ IdProvincia: $("#cboprovincia option: selected").val() }),
-                    dataType: "json",
-                    contentType: "application/json; charset-utf-8",
-                    success: function (data) {
-                        if (data.lista != null) {
-                            $.each(data.lista, function (i, item) {
-                                $("<option>").attr({ "value": item.IdCanton }).text(item.Descripcion).appendTo("#cbocanton")
-                            })
-                            ListarDistrito();
+            $("<option>").attr({ "value": "00", "disabled": "disabled", "selected": "true" }).text("Seleccionar").appendTo("#cbocanton")
 
-                        }
+            jQuery.ajax({
+                url: '@Url.Action("ObtenerCanton","Tienda")',
+                type: "POST",
+                data: JSON.stringify({ IdProvincia: $("#cboprovincia option: selected").val() }),
+                dataType: "json",
+                contentType: "application/json; charset-utf-8",
+                success: function (data) {
+                    if (data.lista != null) {
+                        $.each(data.lista, function (i, item) {
+                            $("<option>").attr({ "value": item.IdCanton }).text(item.Descripcion).appendTo("#cbocanton")
+                        })
+                        ListarDistrito();
+
                     }
-                })
-            }
-
-            $("#cbocanton").on("change", function () {
-                ListarDistrito();
+                }
             })
+        }
 
-            function ListarDistrito() {
-                $("#cbodistrito").html("");
+        $("#cbocanton").on("change", function () {
+            ListarDistrito();
+        })
 
-                $("<option>").attr({ "value": "00", "disabled": "disabled", "selected": "true" }).text("Seleccionar").appendTo("#cbodistrito")
+        function ListarDistrito() {
+            $("#cbodistrito").html("");
 
-                jQuery.ajax({
-                    url: '@Url.Action("ObtenerDistrito","Tienda")',
-                    type: "POST",
-                    data: JSON.stringify({ IdProvincia: $("#cboprovincia option: selected").val(), IdCanton: $("#cbocanton option: selected").val() }),
-                    dataType: "json",
-                    contentType: "application/json; charset-utf-8",
-                    success: function (data) {
-                        if (data.lista != null) {
-                            $.each(data.lista, function (i, item) {
-                                $("<option>").attr({ "value": item.IdDistrito }).text(item.Descripcion).appendTo("#cbodistrito")
-                            })
+            $("<option>").attr({ "value": "00", "disabled": "disabled", "selected": "true" }).text("Seleccionar").appendTo("#cbodistrito")
 
-                        }
+            jQuery.ajax({
+                url: '@Url.Action("ObtenerDistrito","Tienda")',
+                type: "POST",
+                data: JSON.stringify({ IdProvincia: $("#cboprovincia option: selected").val(), IdCanton: $("#cbocanton option: selected").val() }),
+                dataType: "json",
+                contentType: "application/json; charset-utf-8",
+                success: function (data) {
+                    if (data.lista != null) {
+                        $.each(data.lista, function (i, item) {
+                            $("<option>").attr({ "value": item.IdDistrito }).text(item.Descripcion).appendTo("#cbodistrito")
+                        })
+
                     }
-                })
-            }
+                }
+            })
+        }
 
-        </script>
+    </script>
 </body>
 
 </html>
