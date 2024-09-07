@@ -58,7 +58,7 @@
                                 </div>
 
                                 <div class="d-flex align-self-center">
-                                    
+                                  <label class="align-self-center"> <b>Total: S/. <span id="total">0</span></b></label>
                                 </div>
                             </div>
                         </div>
@@ -133,8 +133,7 @@
                                     $("<div>").addClass("col-sm-4 align-self-center").append(
                                         $("<span>").addClass("font-wight-bold d-block").text(item.oProducto.oMarca.Descripcion),
                                         $("<span>").text(item.oProducto.Nombre)
-                                    )
-                                    //3
+                                    ),
                                     $("<div>").addClass("col-sm-2 align-self-center").append(
                                         $("<span>").text(item.oProducto.Precio.toFixed(2)+ " USD")
 
@@ -161,6 +160,13 @@
                         ).appendTo("#productos-carrito")
 
                     })
+                    sumarTotal()
+                },
+                error: function (error) {
+                    $("#producto-carrito").LoadingOverlay("hide")
+                },
+                beforeSend: function () {
+                    $("#producto-carrito").LoadingOverlay("show")
                 }
             })
 
@@ -235,6 +241,21 @@
                     }
                 }
             })
+        }
+
+        function sumarTotal() {
+            var sumaTotal = parseFloat(0)
+            $("input.input-cantidad").each(function (i) {
+                var precio = $(this).data("oProducto").Precio;
+                
+                var cantidad = parseFloat($(this).val())
+
+                var subtotal = precio * cantidad;
+                sumaTotal += subtotal; 
+            })
+
+            $("#total").text(sumaTotal.toFixed(2))
+            $("#total").data("sumatotal", sumaTotal)
         }
 
     </script>
