@@ -22,15 +22,16 @@
                                     <form>
                                         <div class="mb-2">
                                             <label for="cboprovincia" class="form-label">Provincia:</label>
-                                            <select class="form-select form-select-sm" id="cboprovincia"></select>
+                                            <select class="form-select form-select-sm" id="cboprovincia">
+                                            </select>
                                         </div>
                                         <div class="mb-2">
                                             <label for="cbocanton" class="form-label">Canton:</label>
                                             <select class="form-select form-select-sm" id="cbocanton"></select>
                                         </div>
                                         <div class="mb-2">
-                                            <label for="cbodistrito" class="form-label">Canton:</label>
-                                            <select class="form-select form-select-sm" id="cbodistrit"></select>
+                                            <label for="cbodistrito" class="form-label">Distrito:</label>
+                                            <select class="form-select form-select-sm" id="cbodistrito"></select>
                                         </div>
                                         <div class="mb-2">
                                             <label for="txtnombrecontacto" class="form-label">Nombre Contacto:</label>
@@ -49,6 +50,7 @@
                                                 <i class="fab fa-paypal"></i> Terminar y procesar pago
                                             </button>
                                         </div>
+                                        
                                     </form>
                                 </div>
                             </div>
@@ -62,12 +64,67 @@
 
 @section scripts{
     <script>
- $(document).ready(function(){
-    ListarProvincia()
-   })
+         $(document).ready(function () {
+            @*jQuery.ajax({
+                url: '@Url.Action("ListarProductosCarrito","Tineda")',
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset-utf-8",
+                success: function (response) {
+                    $("#productos-carrito").html("");
+                    $("#productos-carrito").LoadingOverlay("hide");
+
+                    $.each(response.data, function (i, item) {
+                        $("<div>").addClass("card mb-2 card-producto").append(
+                            $("<div>").addClass("card-body").append(
+                                $("<div>").addClass("row").append(
+                                    // 1
+                                    $("<div>").addClass("col-sm-2 align-self-center d-flex justify-content-center").append(
+                                        $("<img>").addClass("rounded").attr({"src": "data:image/"+item.oProducto.Extension + ";base64" + item.oProducto.Base64}).
+                                        css({"width":"100px", "height":"100px"})
+                                    ),
+                                    // 2.
+                                    $("<div>").addClass("col-sm-4 align-self-center").append(
+                                        $("<span>").addClass("font-wight-bold d-block").text(item.oProducto.oMarca.Descripcion),
+                                        $("<span>").text(item.oProducto.Nombre)
+                                    ),
+                                    //3
+                                    $("<div>").addClass("col-sm-2 align-self-center").append(
+                                        $("<span>").text(item.oProducto.Precio.toFixed(2)+"USD")
+
+                                    ),
+                                    //4
+                                    $("<div>").addClass("col-sm-2 align-self-center").append(
+                                        $("<div>").addClass("d-flex").append(
+                                            $("<button>").addClass("btn btn-outline-secondary btn-restar rounded-0").append(
+                                                $("<i>").addClass("fas fa-minus")
+                                            ),
+                                            $("<input>").addClass("form-control input-cantidad p-1 text-center rounded-0").attr({"disabled":"disabled"}).css({"width":"40px"}).data("oProducto", item.oProducto).val(item.Cantidad),
+                                            $("<button>").addClass("btn btn-outline-secondary btn-restar rounded-0").append(
+                                                $("<i>").addClass("fas fa-plus")
+                                            )
+                                        )
+                                    ),
+                                    //5
+                                    $("<div>").addClass("col-sm-2 align-self-center").append(
+                                        $("<button>").addClass("btn btn-outline-danger btn-eliminar").append(
+                                                $("<i>").addClass("far fa-trash-alt"), "Eliminar"
+                                            )
+                                    )
+
+                                )
+                            )
+                        ).appendTo("#productos-carrito")
+
+                    })
+                }
+            })*@
+
+            ListarProvincia()
+        })
 
     function ListarProvincia(){
-             //$("<option>").attr({"value":item.IdProvincia}).text(item.descripcion).appendTo("#cboprovincia") // CORREGIR
+        $("<option>").attr({ "value": "00", "disabled": "disabled", "selected": "true" }).text("Seleccionar").appendTo("#cboprovincia")
          jQuery.ajax({
             url: '@Url.Action("ObtenerProvincia","Tienda")',
             type: "POST",
@@ -78,11 +135,63 @@
                     $.each(data.lista, function (i, item) {
                         $("<option>").attr({"value":item.IdProvincia}).text(item.Descripcion).appendTo("#cboprovincia")
                     })
+                    ListarCanton();
                 }
-                
             }
          })
-    }
+        }
+
+        $("#cboprovincia").on("change", function () {
+            ListarCanton();
+        })
+
+        function ListarCanton() {
+            $("#cbocanton").html("");
+
+            $("<option>").attr({ "value": "00", "disabled": "disabled", "selected": "true" }).text("Seleccionar").appendTo("#cbocanton")
+
+            jQuery.ajax({
+                url: '@Url.Action("ObtenerCanton", "Tienda")',
+                type: "POST",
+                data: JSON.stringify({ IdProvincia: $("#cboprovincia option:selected").val() }),
+                dataType: "json",
+                contentType: "application/json; charset-utf-8",
+                success: function (data) {
+                    if (data.lista != null) {
+                        $.each(data.lista, function (i, item) {
+                            $("<option>").attr({ "value": item.IdCanton }).text(item.Descripcion).appendTo("#cbocanton")
+                        })
+                        ListarDistrito();
+                    }
+                }
+            })
+        }
+
+        $("#cbocanton").on("change", function () {
+            ListarDistrito();
+        })
+
+        function ListarDistrito() {
+            $("#cbodistrito").html("");
+
+            $("<option>").attr({ "value": "00", "disabled": "disabled", "selected": "true" }).text("Seleccionar").appendTo("#cbodistrito")
+
+            jQuery.ajax({
+                url: '@Url.Action("ObtenerDistrito","Tienda")',
+                type: "POST",
+                data: JSON.stringify({ IdProvincia: $("#cboprovincia option:selected").val(), IdCanton: $("#cbocanton option:selected").val() }),
+                dataType: "json",
+                contentType: "application/json; charset-utf-8",
+                success: function (data) {
+                    if (data.lista != null) {
+                        $.each(data.lista, function (i, item) {
+                            $("<option>").attr({ "value": item.IdDistrito }).text(item.Descripcion).appendTo("#cbodistrito")
+                        })
+
+                    }
+                }
+            })
+        }
 
     </script>
 }

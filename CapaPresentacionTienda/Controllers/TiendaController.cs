@@ -118,18 +118,19 @@ namespace CapaPresentacionTienda.Controllers
 
             bool conversion;
 
-            oLista = new CN_Carrito().ListarProducto(idcliente).Select(oc => new Carrito() { 
-              oProducto = new Producto()
-              {
-                  IdProducto = oc.oProducto.IdProducto,
-                  Nombre = oc.oProducto.Nombre,
-                  oMarca = oc.oProducto.oMarca,
-                  Precio = oc.oProducto.Precio,
-                  RutaImagen = oc.oProducto.RutaImagen,
-                  Base64 = CN_Recursos.ConvertirBase64(Path.Combine(oc.oProducto.RutaImagen, oc.oProducto.NombreImagen), out conversion),
-                  Extension = Path.GetExtension(oc.oProducto.NombreImagen)
-              },
-              Cantidad = oc.Cantidad
+            oLista = new CN_Carrito().ListarProducto(idcliente).Select(oc => new Carrito()
+            {
+                oProducto = new Producto()
+                {
+                    IdProducto = oc.oProducto.IdProducto,
+                    Nombre = oc.oProducto.Nombre,
+                    oMarca = oc.oProducto.oMarca,
+                    Precio = oc.oProducto.Precio,
+                    RutaImagen = oc.oProducto.RutaImagen,
+                    Base64 = CN_Recursos.ConvertirBase64(Path.Combine(oc.oProducto.RutaImagen, oc.oProducto.NombreImagen), out conversion),
+                    Extension = Path.GetExtension(oc.oProducto.NombreImagen)
+                },
+                Cantidad = oc.Cantidad
             }).ToList();
 
             return Json(new { data = oLista }, JsonRequestBehavior.AllowGet);
@@ -142,7 +143,7 @@ namespace CapaPresentacionTienda.Controllers
 
             bool respuesta = false;
             string mensaje = string.Empty;
-                
+
             respuesta = new CN_Carrito().OperacionCarrito(idcliente, idproducto, true, out mensaje);
 
             return Json(new { respuesta = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
@@ -156,7 +157,7 @@ namespace CapaPresentacionTienda.Controllers
             string mensaje = string.Empty;
 
             respuesta = new CN_Carrito().EliminarCarrito(idcliente, idproducto);
-            return Json(new {respuesta = respuesta,mensaje = mensaje}, JsonRequestBehavior.AllowGet);   
+            return Json(new { respuesta = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -170,24 +171,26 @@ namespace CapaPresentacionTienda.Controllers
         }
 
         [HttpPost]
-        public JsonResult ObtenerCanton(string IdProvincia){
-         List<Canton> oLista = new List<Canton>();
-         oLista = new CN_Ubicacion().ObtenerCanton(IdProvincia);
+        public JsonResult ObtenerCanton(string IdProvincia)
+        {
+            List<Canton> oLista = new List<Canton>();
+            oLista = new CN_Ubicacion().ObtenerCanton(IdProvincia);
 
-         return Json(new {lista = oLista}, JsonRequestBehavior.AllowGet);   
+            return Json(new { lista = oLista }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult ObtenerDistrito(string IdProvincia, string IdCanton){
-         List<Distrito> oLista = new List<Distrito>();
-         oLista = new CN_Ubicacion().ObtenerDistrito(IdProvincia, IdCanton);
+        public JsonResult ObtenerDistrito(string IdProvincia, string IdCanton)
+        {
+            List<Distrito> oLista = new List<Distrito>();
+            oLista = new CN_Ubicacion().ObtenerDistrito(IdProvincia, IdCanton);
 
-         return Json(new {lista = oLista}, JsonRequestBehavior.AllowGet);   
+            return Json(new { lista = oLista }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Carrito()
         {
-          return View();
+            return View();
         }
 
 

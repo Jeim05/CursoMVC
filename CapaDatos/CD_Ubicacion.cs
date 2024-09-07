@@ -60,7 +60,7 @@ namespace CapaDatos
                 using (SqlConnection oconexion = new SqlConnection(Conexion.conexion)){
                     string query = "select * from CANTON where IdProvincia = @idprovincia";
                     SqlCommand cmd = new SqlCommand(query, oconexion);
-                    cmd.Parameters.AddWithValue(" @idprovincia", idprovincia);
+                    cmd.Parameters.AddWithValue("@idprovincia", idprovincia);
                     cmd.CommandType = CommandType.Text; // Se da este instruccion ya que el query es un texto simple
                     oconexion.Open();
                     
@@ -94,8 +94,8 @@ namespace CapaDatos
                 using (SqlConnection oconexion = new SqlConnection(Conexion.conexion)){
                     string query = "select * from DISTRITO where IdProvincia = @IdProvincia and IdCanton = @IdCanton";
                     SqlCommand cmd = new SqlCommand(query, oconexion);
-                    cmd.Parameters.AddWithValue(" @IdProvincia", idprovincia);
-                    cmd.Parameters.AddWithValue(" @IdCanton", idcanton);
+                    cmd.Parameters.AddWithValue("@IdProvincia", idprovincia);
+                    cmd.Parameters.AddWithValue("@IdCanton", idcanton);
                     cmd.CommandType = CommandType.Text; // Se da este instruccion ya que el query es un texto simple
                     oconexion.Open();
                     
