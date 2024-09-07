@@ -161,17 +161,18 @@ namespace CapaPresentacionTienda.Controllers
 
 
         [HttpPost]
-        public JsonResult ObtenerProvincia(){
-         List<Provincia> oLista = new List<Provincia>();
-         oLista = CN_Ubicacion().ObtenerProvincia();
+        public JsonResult ObtenerProvincia()
+        {
+            List<Provincia> oLista = new List<Provincia>();
+            oLista = new CN_Ubicacion().ObtenerProvincia();
 
-         return Json(new {lista = oLista}, JsonRequestBehavior.AllowGet);   
+            return Json(new { lista = oLista }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult ObtenerCanton(string IdProvincia){
          List<Canton> oLista = new List<Canton>();
-         oLista = CN_Ubicacion().ObtenerCanton(IdProvincia);
+         oLista = new CN_Ubicacion().ObtenerCanton(IdProvincia);
 
          return Json(new {lista = oLista}, JsonRequestBehavior.AllowGet);   
         }
@@ -179,7 +180,7 @@ namespace CapaPresentacionTienda.Controllers
         [HttpPost]
         public JsonResult ObtenerDistrito(string IdProvincia, string IdCanton){
          List<Distrito> oLista = new List<Distrito>();
-         oLista = CN_Ubicacion().ObtenerCanton(IdProvincia,IdCanton);
+         oLista = new CN_Ubicacion().ObtenerDistrito(IdProvincia, IdCanton);
 
          return Json(new {lista = oLista}, JsonRequestBehavior.AllowGet);   
         }
