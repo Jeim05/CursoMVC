@@ -12,11 +12,6 @@ namespace CapaDatos
 {
     public class CD_Ubicacion
     {
-        //AGREGAR AL SCRIPT DE LA BD
-        // select * from PROVINCIA
-        // select * from CANTON where IdProvincia = 1
-        // select * from DISTRITO where IdProvincia = @IdProvincia and IdCanton = @IdCanton
-
          public List<Provincia> ObtenerProvincia()
         {
             List < Provincia > lista = new List<Provincia>();
