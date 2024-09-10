@@ -412,7 +412,7 @@ create proc sp_OperacionCarrito(
 		     end
 		       else
 			     begin
-			      update CARRITO set Cantidad = Cantidad -1 where IdCliente = @IdCliente and IdProducto = @IdProducto
+			      update CARRITO set Cantidad = Cantidad - 1 where IdCliente = @IdCliente and IdProducto = @IdProducto
 				  update PRODUCTO set Stock = Stock + 1 where IdProducto = @IdProducto
 			end
 
