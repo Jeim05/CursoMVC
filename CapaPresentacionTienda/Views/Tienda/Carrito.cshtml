@@ -15,7 +15,7 @@
                             <div class="me-2">
                                 <div class="d-flex justify-content-between">
                                     <h5 class="ms-2 mt-2">Detalle carrito</h5>
-                                    <a class="btn btn-primary" href="@Url.Action(" Index","Tienda")">
+                                    <a class="btn btn-primary" href="@Url.Action("Index","Tienda")">
                                         <i class="fas fa-cart-plus"></i> Seguir Comprando
                                     </a>
                                 </div>
@@ -58,7 +58,7 @@
                                 </div>
 
                                 <div class="d-flex justify-content-end">
-                                    <label class="align-self-end"> <b>Total: S/. <span id="total">0</span></b></label>
+                                    <label class="align-self-end"> <b>Total: S/. <span id="total">0</span> USD </b></label>
                                 </div>
                             </div>
                         </div>
@@ -152,9 +152,8 @@
                                     $("<div>").addClass("col-sm-2 align-self-center").append(
                                         $("<button>").addClass("btn btn-outline-danger btn-eliminar").append(
                                                 $("<i>").addClass("far fa-trash-alt"), " Eliminar"
-                                            )
+                                        ).data("idproducto",item.oProducto.IdProducto)
                                     )
-
                                 )
                             )
                         ).appendTo("#productos-carrito")
@@ -173,7 +172,7 @@
             ListarProvincia()
         })
 
-    function ListarProvincia(){
+       function ListarProvincia(){
         $("<option>").attr({ "value": "00", "disabled": "disabled", "selected": "true" }).text("Seleccionar").appendTo("#cboprovincia")
          jQuery.ajax({
             url: '@Url.Action("ObtenerProvincia","Tienda")',
@@ -322,9 +321,28 @@
                     }
                 })
             }
+        })
 
+        $(document).on("click", ".btn-eliminar", function () {
+            var idproducto = $(this).data("idproducto");
+            var card_producto = $(this).parents("div.card-producto")
 
-
+            jQuery.ajax({
+                url: '@Url.Action("EliminarCarrito", "Tienda")',
+                type: "POST",
+                data: JSON.stringify({ idproducto: idproducto }),
+                dataType: "json",
+                contentType: "application/json; charset-utf-8",
+                success: function (data) {
+                    if (data.respuesta) {
+                        card_producto.remove();
+                        MostrarCantidadCarrito()
+                        sumarTotal();
+                    } else {
+                        swal("", data.mensaje, "warning")
+                    }
+                }
+             })
         })
 
 
