@@ -428,7 +428,7 @@ create proc sp_OperacionCarrito(
  
 
 
- /*Se crea una función de tipo tabla para obtener los datos del carrito de un determindo cliente*/
+ /*Se crea una funciÃ³n de tipo tabla para obtener los datos del carrito de un determindo cliente*/
  create function fn_obtenerCarritoCliente(
   @idcliente int
  )
@@ -469,6 +469,13 @@ begin
    END CATCH
 END
 
+
+CREATE TYPE [dbo].[EDetalle_Venta] as TABLE(
+    [IdProducto] int NULL,
+    [Cantidad] int NULL,
+    [Total] decimal(18,2) NULL
+)
+	
 
 
 
