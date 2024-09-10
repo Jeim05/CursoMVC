@@ -475,6 +475,51 @@ CREATE TYPE [dbo].[EDetalle_Venta] as TABLE(
     [Cantidad] int NULL,
     [Total] decimal(18,2) NULL
 )
+
+
+/***** PROCEDIMIENTO ALMACENADO PARA ADMINISTRAR LA VENTAS *****/
+create proc sp_RegistrarVenta(
+    @IdCliente int,
+    @TotalProducto int,
+    @MontoTotal decimal(18,2),
+    @Contacto varchar(100),
+    @IdDistrito varchar(6),
+    @Telefono varchar(100),
+    @Direccion varchar(100),
+    @IdTransaccion varchar(50),
+    @DetalleVenta [EDetalle_Venta] READONLY,
+    @Resultado bit output,
+    @Mensaje varchar(500) output
+)
+ as 
+  begin 
+    begin try
+          declare @idventa int = 0
+          set @Resultado = 1
+          set @Mensaje = ''
+
+          begin transaction registro 
+          
+             INSERT INTO VENTA(IdCliente, TotalProducto, MontoTotal, Contacto, IdDistrito, Telefono, Direccion, IdTransaccion)
+                    VALUES(@IdCliente, @TotalProducto, @MontoTotal, @Contacto, @IdDistrito, @Telefono, @Direccion, @IdTransaccion)
+
+             SET @idventa = SCOPE_IDENTITY()
+
+             INSERT INTO DETALLE_VENTA(IdVenta, IdProducto, Cantidad, Total)
+              SELECT @idventa, IdProducto, Cantidad, Total from @DetalleVenta
+
+              DELETE FROM CARRITO WHERE IdCliente = @IdCliente
+          
+            commit transaction registro
+      end try
+      begin catch
+        set @Resultado = 0
+        set @Mensaje = ERROR_MESSAGE()
+        rollback transaction registro
+      end catch
+
+   
+  end 
 	
 
 
