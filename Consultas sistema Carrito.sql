@@ -518,7 +518,12 @@ create proc sp_RegistrarVenta(
         rollback transaction registro
       end catch
   end 
-	
+
+
+SELECT P.RutaImagen, p.NombreImagen, p.Nombre, p.Precio, dv.Cantidad, dv.Total, v.IdTransaccion  FROM DETALLE_VENTA dv
+INNER JOIN PRODUCTO p ON p.IdProducto = dv.IdProducto
+INNER VENTA v ON v.IdVenta = dv.IdVenta 
+WHERE v.IdCliente = 1
 
 
 
