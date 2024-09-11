@@ -520,10 +520,18 @@ create proc sp_RegistrarVenta(
   end 
 
 
-SELECT P.RutaImagen, p.NombreImagen, p.Nombre, p.Precio, dv.Cantidad, dv.Total, v.IdTransaccion  FROM DETALLE_VENTA dv
-INNER JOIN PRODUCTO p ON p.IdProducto = dv.IdProducto
-INNER VENTA v ON v.IdVenta = dv.IdVenta 
-WHERE v.IdCliente = 1
+create FUNCTION fn_ListarCompra(
+    @idcliente int
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+    SELECT P.RutaImagen, p.NombreImagen, p.Nombre, p.Precio, dv.Cantidad, dv.Total, v.IdTransaccion  FROM DETALLE_VENTA dv
+    INNER JOIN PRODUCTO p ON p.IdProducto = dv.IdProducto
+    INNER JOIN VENTA v ON v.IdVenta = dv.IdVenta 
+    WHERE v.IdCliente = 1
+)
 
 
 
