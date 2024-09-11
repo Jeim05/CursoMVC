@@ -517,8 +517,6 @@ create proc sp_RegistrarVenta(
         set @Mensaje = ERROR_MESSAGE()
         rollback transaction registro
       end catch
-
-   
   end 
 	
 
@@ -532,6 +530,8 @@ create proc sp_RegistrarVenta(
  SELECT * FROM CANTON
  SELECT * FROM DISTRITO
  SELECT * FROM PRODUCTO
+ SELECT * FROM VENTA
+ SELECT * FROM DETALLE_VENTA
 
 
  select * from CANTON where IdProvincia = 01
