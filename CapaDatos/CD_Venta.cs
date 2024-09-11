@@ -23,7 +23,7 @@ namespace CapaDatos
                 {
                     SqlCommand cmd = new SqlCommand("sp_RegistrarVenta", conexion); // Hacemos referencia al prcedimiento almacenado creado
                     cmd.Parameters.AddWithValue("IdCliente", obj.IdCliente);
-                    cmd.Parameters.AddWithValue("TotalProducto", obj.TotalProducto);
+                    cmd.Parameters.AddWithValue("TotalProducto", obj.TotlProducto);
                     cmd.Parameters.AddWithValue("MontoTotal", obj.MontoTotal);
                     cmd.Parameters.AddWithValue("Contacto", obj.Contacto);
                     cmd.Parameters.AddWithValue("IdDistrito", obj.IdDistrito);
