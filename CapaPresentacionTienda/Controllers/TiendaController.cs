@@ -227,7 +227,7 @@ namespace CapaPresentacionTienda.Controllers
 
         public async Task<ActionResult> PagoEfectuado()
         {
-            string idtransaccion = Request.QueryString["idtransaccion"];
+            string idtransaccion = Request.QueryString["idTransaccion"];
             bool status = Convert.ToBoolean(Request.QueryString["status"]);
             ViewData["Status"] = status;
 
