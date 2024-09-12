@@ -115,7 +115,7 @@ namespace CapaDatos
                         while (reader.Read())
                         {
                             lista.Add(
-                                new Carrito
+                                new Carrito()
                                 {
                                     oProducto = new Producto ()
                                     {
