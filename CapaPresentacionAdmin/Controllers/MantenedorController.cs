@@ -184,15 +184,11 @@ namespace CapaPresentacionAdmin.Controllers
                     string ruta_guardar = ConfigurationManager.AppSettings["ServidorFotos"];
                     string extension = Path.GetExtension(archivoImagen.FileName);
                     string nombre_imagen = string.Concat(oProducto.IdProducto.ToString(),extension);
-                    /*DirectoryInfo di = new DirectoryInfo(ruta_guardar);
-                    DirectorySecurity ds = di.GetAccessControl();
-                    ds.AddAccessRule(new FileSystemAccessRule("Everyone", FileSystemRights.FullControl, AccessControlType.Allow));
-                    di.SetAccessControl(ds);*/
-
+                   
                     try
                     {
                       
-                        archivoImagen.SaveAs(Path.Combine(ruta_guardar));
+                        archivoImagen.SaveAs(Path.Combine(ruta_guardar,nombre_imagen));
 
                     }
                     catch (Exception ex)
