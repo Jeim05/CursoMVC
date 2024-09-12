@@ -244,5 +244,30 @@ namespace CapaPresentacionTienda.Controllers
         }
 
 
+        public ActionResult MisCompras()
+        {
+            int idcliente = ((Cliente)Session["Cliente"]).IdCliente;
+
+            List<DetalleVenta> oLista = new List<DetalleVenta>();
+
+            bool conversion;
+
+            oLista = new CN_Venta().ListarCompras(idcliente).Select(oc => new DetalleVenta()
+            {
+                oProducto = new Producto()
+                {
+                    Nombre = oc.oProducto.Nombre,
+                    Precio = oc.oProducto.Precio,
+                    Base64 = CN_Recursos.ConvertirBase64(Path.Combine(oc.oProducto.RutaImagen, oc.oProducto.NombreImagen), out conversion),
+                    Extension = Path.GetExtension(oc.oProducto.NombreImagen)
+                },
+                Cantidad = oc.Cantidad,
+                Total = oc.Total,
+                IdTransaccion = oc.IdTransaccion
+            }).ToList();
+
+            return View(oLista);
+        }
+
     }
 }
