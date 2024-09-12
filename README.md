@@ -5,7 +5,7 @@ Curso de <a href="https://www.youtube.com/watch?v=16N5OhcrLws&list=PLx2nia7-PgoD
 - Implementación del modelo de Capas
 - C#
 - Asp .Net
-- SQL Server (Procedimientos almacenados, query)
+- SQL Server (Procedimientos almacenados, consultas, funciones)
 - Bootstrap 5
 - JQuery
 - ADO .NET
