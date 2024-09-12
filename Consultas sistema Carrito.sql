@@ -429,7 +429,7 @@ create proc sp_OperacionCarrito(
 
 
  /*Se crea una función de tipo tabla para obtener los datos del carrito de un determindo cliente*/
- create function fn_obtenerCarritoCliente(
+ CREATE FUNCTION fn_obtenerCarritoCliente(
   @idcliente int
  )
  returns table
@@ -520,7 +520,7 @@ create proc sp_RegistrarVenta(
   end 
 
 
-create FUNCTION fn_ListarCompra(
+CREATE FUNCTION fn_ListarCompra(
     @idcliente int
 )
 RETURNS TABLE 
@@ -530,9 +530,8 @@ RETURN
     SELECT P.RutaImagen, p.NombreImagen, p.Nombre, p.Precio, dv.Cantidad, dv.Total, v.IdTransaccion  FROM DETALLE_VENTA dv
     INNER JOIN PRODUCTO p ON p.IdProducto = dv.IdProducto
     INNER JOIN VENTA v ON v.IdVenta = dv.IdVenta 
-    WHERE v.IdCliente = 1
+    WHERE v.IdCliente = @idcliente
 )
-
 
 
  SELECT * FROM CARRITO

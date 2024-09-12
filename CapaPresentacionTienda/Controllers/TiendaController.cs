@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Globalization;
 
+using CapaPresentacionTienda.Filter;
+
 namespace CapaPresentacionTienda.Controllers
 {
     public class TiendaController : Controller
@@ -191,6 +193,8 @@ namespace CapaPresentacionTienda.Controllers
             return Json(new { lista = oLista }, JsonRequestBehavior.AllowGet);
         }
 
+        [ValidarSession]
+        [Authorize]
         public ActionResult Carrito()
         {
             return View();
@@ -225,6 +229,8 @@ namespace CapaPresentacionTienda.Controllers
             return Json(new { Status = true, Link = "/Tienda/PagoEfectuado?idTransaccion=code0001&status=true" }, JsonRequestBehavior.AllowGet);
         }
 
+        [ValidarSession]
+        [Authorize]
         public async Task<ActionResult> PagoEfectuado()
         {
             string idtransaccion = Request.QueryString["idTransaccion"];
@@ -243,7 +249,8 @@ namespace CapaPresentacionTienda.Controllers
                 return View();
         }
 
-
+        [ValidarSession]
+        [Authorize]
         public ActionResult MisCompras()
         {
             int idcliente = ((Cliente)Session["Cliente"]).IdCliente;
