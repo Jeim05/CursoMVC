@@ -1,4 +1,4 @@
-	create database DBCARRITO 
+create database DBCARRITO 
 GO
 
 USE DBCARRITO
