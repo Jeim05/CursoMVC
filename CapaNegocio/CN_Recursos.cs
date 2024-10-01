@@ -45,7 +45,7 @@ namespace CapaNegocio
             {
                 MailMessage mail = new MailMessage();
                 mail.To.Add(correo);
-                mail.From = new MailAddress("jeimmylopezv@gmail.com");
+                mail.From = new MailAddress("email@gmail.com");
                 mail.Subject = asunto;
                 mail.Body = mensaje;
                 mail.IsBodyHtml = true;
@@ -55,7 +55,7 @@ namespace CapaNegocio
                     Host = "smtp.gmail.com",
                     Port = 587,
                     EnableSsl = true,
-                    Credentials = new NetworkCredential("jeimmylopezv@gmail.com", "teoispwzmhmrbmww"),
+                    Credentials = new NetworkCredential("email@gmail.com", "contraseñaaplicacion"),
 
                 };
                 smtp.Send(mail);
